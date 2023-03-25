@@ -8,39 +8,27 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="89dp"
-        android:layout_height="match_parent"
+        android:id="@+id/icon_day"
+        android:layout_width="59dp"
+        android:layout_height="58dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="190dp"
-        android:layout_marginBottom="-1dp"
+        android:layout_marginEnd="208dp"
+        android:layout_marginBottom="1dp"
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <TextView
-        android:id="@+id/day"
-        android:layout_width="wrap_content"
+        android:id="@+id/country_day"
+        android:layout_width="69dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="306dp"
-        android:layout_marginBottom="23dp"
+        android:layout_marginEnd="274dp"
+        android:layout_marginBottom="18dp"
         android:text="Days"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="101dp"
-        android:layout_marginBottom="29dp"
-        android:text="Description"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/temp_day"
@@ -48,10 +36,22 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="27dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="18dp"
         android:text="16°C"
         android:textColor="#FFC107"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/daes_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="133dp"
+        android:layout_marginBottom="20dp"
+        android:text="Description"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
 </RelativeLayout>

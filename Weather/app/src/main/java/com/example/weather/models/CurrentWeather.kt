@@ -1,11 +1,14 @@
-package com.example.weather.Models
+package com.example.weather.models
 
+import androidx.lifecycle.MutableLiveData
+import androidx.room.Entity
 
-data class Current (
+@Entity(tableName = "city")
+data class CurrentWeather (
     val dt: Long,
     val sunrise: Long? = null,
     val sunset: Long? = null,
-    val temp: Double,
+    val temp: String,
     val feelsLike: Double,
     val pressure: Long,
     val humidity: Long,
@@ -13,10 +16,10 @@ data class Current (
     val uvi: Double,
     val clouds: Long,
     val visibility: Long,
-    val windSpeed: Double,
+    val wind_speed: Double,
     val windDeg: Long,
     val windGust: Double,
     val weather: List<Weather>,
     val pop: Double? = null,
-    val rain: Rain? = null
-)
+    val rain: Rain? = null,
+)  {}

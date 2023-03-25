@@ -1,4 +1,4 @@
-package com.example.weather.Models
+package com.example.weather.models
 
 enum class Icon {
     The01D,

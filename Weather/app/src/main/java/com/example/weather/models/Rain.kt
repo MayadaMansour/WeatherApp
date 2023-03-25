@@ -1,4 +1,4 @@
-package com.example.weather.Models
+package com.example.weather.models
 
 data class Rain (
     val the1H: Double
