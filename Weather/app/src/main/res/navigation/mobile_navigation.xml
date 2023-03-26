@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/dialogeFragment">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -26,8 +26,15 @@
         android:name="com.example.weather.ui.setting.SettingFragment"
         android:label="Setting"
         tools:layout="@layout/fragment_setting" />
-
-
+    <fragment
+        android:id="@+id/dialogeFragment"
+        android:name="com.example.weather.location.DialogeFragment"
+        android:label="fragment_dialoge"
+        tools:layout="@layout/fragment_dialoge" >
+        <action
+            android:id="@+id/action_dialogeFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
 
 </navigation>

@@ -43,7 +43,7 @@ class DailyAdapter( var current: List<Daily>) : RecyclerView.Adapter<DailyAdapte
         calendar.set(Calendar.DAY_OF_MONTH,intDay)
         val format=SimpleDateFormat(/* pattern = */ "EEEE")
         val day=format.format(calendar.time)
-        binding.daesDay.text=day
+        binding.countryDay.text=day
         holder.binding.daesDay.text= currentObj.weather.get(0).description
     }
 }

@@ -8,7 +8,6 @@ import com.example.weather.models.MyResponce
 class Reposatory private constructor(
 
     var remoteSource: Client?
-
     //var localSource: LocalSource
 ):RepoInterface {
      lateinit var myResponce:MyResponce
@@ -27,8 +26,6 @@ class Reposatory private constructor(
         }
     }
 
-
-
     override suspend fun insertWeathers(current: MyResponce) {
         //    localSource.insertWeathers(current)
     }
@@ -43,14 +40,11 @@ class Reposatory private constructor(
     }
 
     override suspend fun getWeatherOverNetwork(lat:Double,lon:Double,exclude:String,appid:String): MyResponce {
-
         val response = remoteSource?.getWeatherOverNetwork(lat, lon, exclude, appid)
         if (response?.isSuccessful == true) {
             response.body()!!.also { myResponce = it }
         }
     return myResponce
 }
-
-
 }
 
