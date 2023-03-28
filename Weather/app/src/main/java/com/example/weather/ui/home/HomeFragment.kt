@@ -3,38 +3,39 @@ package com.example.weather.ui.home
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.day1.Room.DAO
+import com.example.day1.Room.WeatherDAO
 import com.example.mvvm.Model.Reposatory
+import com.example.mvvm.Room.LocalSource
+import com.example.weather.data.weather.local.ConcreteLocalSource
 import com.example.weather.data.weather.netwok.Client
 import com.example.weather.databinding.FragmentHomeBinding
-import com.example.weather.location.PERMISSION_ID
+
 import com.example.weather.models.Constants.MBAR
 import com.google.android.gms.location.*
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 
+private val PERMISSION_ID = 40
 
 @Suppress("UNREACHABLE_CODE")
 class HomeFragment : Fragment() {
@@ -42,6 +43,7 @@ class HomeFragment : Fragment() {
     lateinit var myViewModelFactory: ViewModelFactory
     lateinit var geocoder: Geocoder
     private lateinit var fusedClient: FusedLocationProviderClient
+    lateinit var dao: DAO
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -61,22 +63,22 @@ class HomeFragment : Fragment() {
         getLastLocation()
 
 
-
         //Factory
-        myViewModelFactory = ViewModelFactory(Reposatory.getInstance(Client.getInstance()))
+        myViewModelFactory = ViewModelFactory(Reposatory.getInstance(Client.getInstance(), ConcreteLocalSource(requireContext())))
         myViewModel =
             ViewModelProvider(this.requireActivity(), myViewModelFactory)[HomeViewModel::class.java]
+
 
 
         //Observe Home Data
         (myViewModel as HomeViewModel).currentWeather.observe(viewLifecycleOwner) {
             _binding?.country?.text = it.timezone
-            _binding?.tempDay?.text = it.current.temp + com.example.weather.models.Constants.CELSIUS
+            _binding?.tempDay?.text = it.current.temp.toString() + com.example.weather.models.Constants.CELSIUS
             val dayhome = getCurrentDay(it.current.dt.toInt())
             _binding?.desc?.text = it.current.weather.get(0).description
             _binding?.day?.text = dayhome
             _binding?.descCard?.text =
-                it.current.temp + com.example.weather.models.Constants.CELSIUS
+                it.current.temp .toString()+ com.example.weather.models.Constants.CELSIUS
             binding.descCard2.text = it.current.humidity.toString() + "%"
             Glide.with(requireActivity())
                 .load("https://openweathermap.org/img/wn/${it.current.weather.get(0).icon}@2x.png")
@@ -92,7 +94,7 @@ class HomeFragment : Fragment() {
             //Observe RecyclerView
             binding.recDays.apply {
                 layoutManager = LinearLayoutManager(context)
-                this.adapter = DailyAdapter(it.daily)
+                this.adapter = DailyAdapter(it.daily!!)
             }
             binding.recHours.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -189,7 +191,6 @@ class HomeFragment : Fragment() {
     }
 
 
-
     //Methods Data
     fun getCurrentDay(dt: Int): String {
         var date = Date(dt * 1000L)
@@ -207,6 +208,14 @@ class HomeFragment : Fragment() {
         val date = Date(dateObject!! * 1000L)
         val sdf = SimpleDateFormat("HH:mm")
         return sdf.format(date)
+    }
+
+    //OnlineChick
+    private fun isOnline(ctx: Context): Boolean {
+        val cm =
+            ctx.getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = cm.activeNetworkInfo
+        return activeNetwork != null
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.mvvm.Model
 
+import com.example.mvvm.Room.LocalSource
 import com.example.weather.data.weather.netwok.Client
 
 import com.example.weather.models.MyResponce
@@ -7,44 +8,53 @@ import com.example.weather.models.MyResponce
 
 class Reposatory private constructor(
 
-    var remoteSource: Client?
-    //var localSource: LocalSource
-):RepoInterface {
-     lateinit var myResponce:MyResponce
-    companion object{
+    var remoteSource: Client,
+    var localSource: LocalSource
+) : RepoInterface {
+    lateinit var myResponce: MyResponce
+
+    companion object {
         @Volatile
         private var INSTANCE: Reposatory? = null
-        fun getInstance (
-            remoteSource: Client?
-            //localSource: LocalSource
+        fun getInstance(
+            remoteSource: Client?,
+            localSource: LocalSource
         ): Reposatory {
             return INSTANCE ?: synchronized(this) {
                 val temp = Reposatory(
-                    remoteSource)
+                    remoteSource!!, localSource
+                )
                 INSTANCE = temp
-                temp }
+                temp
+            }
         }
+
     }
 
     override suspend fun insertWeathers(current: MyResponce) {
-        //    localSource.insertWeathers(current)
+        localSource.insertWeathers(current)
     }
 
     override suspend fun deleteWeathers(current: MyResponce) {
-        //   localSource.deleteWeathers(current)
+        localSource.deleteWeathers(current)
     }
 
     override suspend fun getStoreWeathers(): List<MyResponce> {
-   // return localSource.getStoreWeathers()
-        return listOf()
+        return localSource.getStoreWeathers()
+
     }
 
-    override suspend fun getWeatherOverNetwork(lat:Double,lon:Double,exclude:String,appid:String): MyResponce {
-        val response = remoteSource?.getWeatherOverNetwork(lat, lon, exclude, appid)
-        if (response?.isSuccessful == true) {
+    override suspend fun getWeatherOverNetwork(
+        lat: Double,
+        lon: Double,
+        exclude: String,
+        appid: String
+    ): MyResponce {
+        val response = remoteSource.getWeatherOverNetwork(lat, lon, exclude, appid)
+        if (response.isSuccessful == true) {
             response.body()!!.also { myResponce = it }
         }
-    return myResponce
-}
+        return myResponce
+    }
 }
 

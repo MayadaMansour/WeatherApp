@@ -23,9 +23,7 @@ class DialogeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var selectedDialogIndex: Int = 0
-    private val list = arrayOf("GPS","Map")
-
-
+    private val list = arrayOf("GPS", "Map")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +58,7 @@ class DialogeFragment : Fragment() {
             }
 
     }
+
     fun showAlertDialog() {
 
         var selectedLocation = list[selectedDialogIndex]
@@ -70,8 +69,14 @@ class DialogeFragment : Fragment() {
                 selectedLocation = list[which]
             }
             .setPositiveButton("Ok") { dialog, which ->
-                if (selectedLocation.equals("GPS")){
-                    val action=DialogeFragmentDirections.actionDialogeFragmentToNavigationHome()
+                if (selectedLocation.equals("GPS")) {
+                    val action =
+                        DialogeFragmentDirections.actionDialogeFragmentToNavigationHome()
+                    findNavController().navigate(action)
+
+                } else {
+                    val action =
+                        DialogeFragmentDirections.actionDialogeFragmentToNavigationHome()
                     findNavController().navigate(action)
                 }
                 Toast.makeText(requireActivity(), "$selectedLocation Selected", Toast.LENGTH_SHORT)
@@ -80,5 +85,7 @@ class DialogeFragment : Fragment() {
             .setNegativeButton("Cancel") { dialog, which ->
                 dialog.dismiss()
             }
-            .show()}
+            .show()
+    }
 }
+

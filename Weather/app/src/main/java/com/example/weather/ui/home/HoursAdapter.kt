@@ -33,7 +33,7 @@ class HoursAdapter ( var current: List<CurrentWeather>) : RecyclerView.Adapter<H
         val currentObj = current.get(position)
         var timeHour = getCurrentTime(currentObj.dt.toInt())
         Glide.with(_current).load("https://openweathermap.org/img/wn/${currentObj.weather.get(0).icon}@2x.png").into(holder.binding.iconHour)
-        holder.binding.tempHours.text = currentObj.temp + com.example.weather.models.Constants.CELSIUS
+        holder.binding.tempHours.text = currentObj.temp.toString() + com.example.weather.models.Constants.CELSIUS
         holder.binding.timeHour.text= timeHour
     }
     @SuppressLint("SimpleDateFormat")
