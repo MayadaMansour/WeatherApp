@@ -1,4 +1,4 @@
-package com.example.weather.ui.home
+package com.example.weather.ui.home.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -23,14 +23,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.day1.Room.DAO
-import com.example.day1.Room.WeatherDAO
 import com.example.mvvm.Model.Reposatory
-import com.example.mvvm.Room.LocalSource
 import com.example.weather.data.weather.local.ConcreteLocalSource
 import com.example.weather.data.weather.netwok.Client
 import com.example.weather.databinding.FragmentHomeBinding
 
 import com.example.weather.models.Constants.MBAR
+import com.example.weather.ui.home.view.HomeViewModel
+import com.example.weather.ui.home.view.ViewModelFactory
 import com.google.android.gms.location.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -90,6 +90,7 @@ class HomeFragment : Fragment() {
             var time2 = formatTime(it.current.sunset)
             _binding?.descCard5?.text = time
             _binding?.descCard6?.text = time2
+
 
             //Observe RecyclerView
             binding.recDays.apply {

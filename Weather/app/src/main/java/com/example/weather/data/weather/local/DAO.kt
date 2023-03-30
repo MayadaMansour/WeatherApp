@@ -1,18 +1,19 @@
 package com.example.day1.Room
 
 import androidx.room.*
+import com.example.weather.models.City
 import com.example.weather.models.MyResponce
 
 
 @Dao
 interface DAO {
-    @Query("SELECT * FROM weather")
-    suspend fun getAll(): List<MyResponce>
+    @Query("SELECT * FROM Favorite")
+    suspend fun getAll(): List<City>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(weather: MyResponce)
+    suspend fun insert(city: City)
 
     @Delete
-    suspend fun delete(weather: MyResponce): Int
+    suspend fun delete(city: City): Int
 
 }

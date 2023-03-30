@@ -1,4 +1,4 @@
-package com.example.weather.ui.home
+package com.example.weather.ui.home.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class HoursAdapter ( var current: List<CurrentWeather>) : RecyclerView.Adapter<HoursAdapter .ViewHolder>(){
+class HoursAdapter ( var current: List<CurrentWeather>) : RecyclerView.Adapter<HoursAdapter.ViewHolder>(){
     lateinit var _current: Context
     lateinit var binding: ItemHoursBinding
 

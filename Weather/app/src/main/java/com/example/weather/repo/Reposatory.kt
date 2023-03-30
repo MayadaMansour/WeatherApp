@@ -2,12 +2,12 @@ package com.example.mvvm.Model
 
 import com.example.mvvm.Room.LocalSource
 import com.example.weather.data.weather.netwok.Client
+import com.example.weather.models.City
 
 import com.example.weather.models.MyResponce
 
 
 class Reposatory private constructor(
-
     var remoteSource: Client,
     var localSource: LocalSource
 ) : RepoInterface {
@@ -31,15 +31,15 @@ class Reposatory private constructor(
 
     }
 
-    override suspend fun insertWeathers(current: MyResponce) {
-        localSource.insertWeathers(current)
+    override suspend fun insertWeathers(city: City) {
+        localSource.insertWeathers(city)
     }
 
-    override suspend fun deleteWeathers(current: MyResponce) {
-        localSource.deleteWeathers(current)
+    override suspend fun deleteWeathers(city: City) {
+        localSource.deleteWeathers(city)
     }
 
-    override suspend fun getStoreWeathers(): List<MyResponce> {
+    override suspend fun getStoreWeathers(): List<City> {
         return localSource.getStoreWeathers()
 
     }

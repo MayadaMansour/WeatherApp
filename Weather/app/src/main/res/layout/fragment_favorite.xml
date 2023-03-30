@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/weather"
-    tools:context=".ui.favorite.FavoriteFragment" >
+    tools:context=".ui.favorite.ui.FavoriteFragment" >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rec_fav"

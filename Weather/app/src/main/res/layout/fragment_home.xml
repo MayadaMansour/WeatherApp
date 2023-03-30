@@ -8,7 +8,7 @@
     android:background="@drawable/weather"
     android:translationZ="30dp"
     app:constraint_referenced_tags="30dp"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.ui.HomeFragment">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"

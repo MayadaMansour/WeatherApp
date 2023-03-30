@@ -7,14 +7,21 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.weather.ui.home.HomeFragment"
+        android:name="com.example.weather.ui.home.ui.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_favorite"
-        android:name="com.example.weather.ui.favorite.FavoriteFragment"
+        android:name="com.example.weather.ui.favorite.ui.FavoriteFragment"
         android:label="Favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_navigation_favorite_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_navigation_favorite_to_detailesFragment"
+            app:destination="@id/detailesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_alert"
         android:name="com.example.weather.ui.alert.AlertFragment"
@@ -43,6 +50,11 @@
         android:name="com.example.weather.location.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
+    <fragment
+        android:id="@+id/detailesFragment"
+        android:name="com.example.weather.ui.favorite.ui.DetailesFragment"
+        android:label="fragment_detailes"
+        tools:layout="@layout/fragment_detailes" />
 
 
 </navigation>
