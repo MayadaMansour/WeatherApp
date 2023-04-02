@@ -219,7 +219,6 @@ class HomeFragment : Fragment() {
     }
 
 
-
     //OnlineChick
     private fun isOnline(ctx: Context): Boolean {
         val cm =

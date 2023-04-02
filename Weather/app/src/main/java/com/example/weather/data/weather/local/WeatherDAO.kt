@@ -11,7 +11,6 @@ import com.example.weather.models.MyResponce
 
 
 @Database(entities = arrayOf(City::class,Alert::class,MyResponce::class), version = 2 )
-
     abstract class WeatherDAO : RoomDatabase() {
         abstract fun getWeathersDao(): DAO
         companion object{

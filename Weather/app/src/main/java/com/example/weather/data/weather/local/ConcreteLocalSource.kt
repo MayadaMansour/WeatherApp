@@ -16,7 +16,6 @@ class ConcreteLocalSource(context:Context): LocalSource {
     }
 
 
-
     override suspend fun insertWeathers(city: City) {
         dao.insert(city)
     }
