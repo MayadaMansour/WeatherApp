@@ -18,11 +18,12 @@ import com.example.weather.models.City
 import com.example.weather.models.MyResponce
 import com.example.weather.ui.favorite.view.FavoriteViewModel
 import com.example.weather.ui.favorite.OnClick
+import com.example.weather.ui.favorite.view.FavoriteViewModelFactory
 import com.example.weather.ui.home.view.ViewModelFactory
 
 class FavoriteFragment : Fragment(), OnClick {
     lateinit var myViewModel: FavoriteViewModel
-    lateinit var myViewModelFactory: ViewModelFactory
+    lateinit var myViewModelFactory: FavoriteViewModelFactory
     lateinit var favoriteAdapter: FavoriteAdapter
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
@@ -38,7 +39,7 @@ class FavoriteFragment : Fragment(), OnClick {
 
 
         //Factory
-        myViewModelFactory = ViewModelFactory(
+        myViewModelFactory = FavoriteViewModelFactory(
             Reposatory.getInstance(
                 Client.getInstance(),
                 ConcreteLocalSource(requireContext())
@@ -51,7 +52,7 @@ class FavoriteFragment : Fragment(), OnClick {
                 myViewModelFactory
             )[FavoriteViewModel::class.java]
 
-        favoriteAdapter = FavoriteAdapter(listOf(),this)
+        favoriteAdapter = FavoriteAdapter(listOf(), this)
 
 
         //Observe Home Data
@@ -63,17 +64,16 @@ class FavoriteFragment : Fragment(), OnClick {
 
             binding.addFab.setOnClickListener {
                 val action =
-                    DialogeFragmentDirections.actionDialogeFragmentToNavigationHome()
+                    FavoriteFragmentDirections.actionNavigationFavoriteToMapsFragment()
                 Navigation.findNavController(it).navigate(action)
-
             }
-
         }
-
         return root
     }
 
-    override fun sendData(weather: MyResponce) {
+    override fun sendData(lat: Double, long: Double) {
+         val action=FavoriteFragmentDirections.fromFavToDetails(lat.toFloat(),long.toFloat())
+         Navigation.findNavController(requireView()).navigate(action)
     }
 
     override fun deleteWeathers(city: City) {

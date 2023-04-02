@@ -20,6 +20,7 @@ class HomeViewModel(private val repo: RepoInterface) : ViewModel() {
             _currentWeather.postValue(repo.getWeatherOverNetwork(lat, lon, exclude, appid))
         }
     }
+
 }
 
 

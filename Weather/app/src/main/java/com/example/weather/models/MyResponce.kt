@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.example.weather.data.weather.local.Converter
 
 
-//@Entity(tableName = "weather")
+@Entity(tableName = "Weather")
 @TypeConverters(Converter::class)
 data class MyResponce (
     @PrimaryKey val lat: Double,
@@ -18,6 +18,6 @@ data class MyResponce (
     val daily: List<Daily>?,
    // var isFavorite:Boolean?,
  //   val minutely: List<Minutely>?=null,
-   // val alerts: List<Alert>?=null,
+    val alerts: List<Alert>?=null,
    // var countryName:String?=null
 )

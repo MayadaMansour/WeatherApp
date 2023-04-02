@@ -4,6 +4,6 @@ import com.example.weather.models.City
 import com.example.weather.models.MyResponce
 
 interface OnClick {
-    fun sendData(weather:MyResponce)
+    fun sendData(lat:Double,lon:Double)
     fun deleteWeathers (city: City)
 }

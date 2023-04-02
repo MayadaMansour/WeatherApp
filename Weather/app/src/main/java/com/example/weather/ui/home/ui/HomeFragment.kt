@@ -43,7 +43,6 @@ class HomeFragment : Fragment() {
     lateinit var myViewModelFactory: ViewModelFactory
     lateinit var geocoder: Geocoder
     private lateinit var fusedClient: FusedLocationProviderClient
-    lateinit var dao: DAO
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -64,21 +63,26 @@ class HomeFragment : Fragment() {
 
 
         //Factory
-        myViewModelFactory = ViewModelFactory(Reposatory.getInstance(Client.getInstance(), ConcreteLocalSource(requireContext())))
+        myViewModelFactory = ViewModelFactory(
+            Reposatory.getInstance(
+                Client.getInstance(),
+                ConcreteLocalSource(requireContext())
+            )
+        )
         myViewModel =
             ViewModelProvider(this.requireActivity(), myViewModelFactory)[HomeViewModel::class.java]
-
 
 
         //Observe Home Data
         (myViewModel as HomeViewModel).currentWeather.observe(viewLifecycleOwner) {
             _binding?.country?.text = it.timezone
-            _binding?.tempDay?.text = it.current.temp.toString() + com.example.weather.models.Constants.CELSIUS
+            _binding?.tempDay?.text =
+                it.current.temp.toString() + com.example.weather.models.Constants.CELSIUS
             val dayhome = getCurrentDay(it.current.dt.toInt())
             _binding?.desc?.text = it.current.weather.get(0).description
             _binding?.day?.text = dayhome
             _binding?.descCard?.text =
-                it.current.temp .toString()+ com.example.weather.models.Constants.CELSIUS
+                it.current.temp.toString() + com.example.weather.models.Constants.CELSIUS
             binding.descCard2.text = it.current.humidity.toString() + "%"
             Glide.with(requireActivity())
                 .load("https://openweathermap.org/img/wn/${it.current.weather.get(0).icon}@2x.png")
@@ -149,6 +153,7 @@ class HomeFragment : Fragment() {
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -193,23 +198,27 @@ class HomeFragment : Fragment() {
 
 
     //Methods Data
+    @SuppressLint("SimpleDateFormat")
     fun getCurrentDay(dt: Int): String {
-        var date = Date(dt * 1000L)
-        var sdf = SimpleDateFormat("d")
+        val date = Date(dt * 1000L)
+        val sdf = SimpleDateFormat("d")
         sdf.timeZone = TimeZone.getDefault()
-        var formatedData = sdf.format(date)
-        var intDay = formatedData.toInt()
-        var calendar = Calendar.getInstance()
+        val formatedData = sdf.format(date)
+        val intDay = formatedData.toInt()
+        val calendar = Calendar.getInstance()
         calendar.set(Calendar.DAY_OF_MONTH, intDay)
-        var format = SimpleDateFormat("EEEE")
+        val format = SimpleDateFormat("EEEE")
         return format.format(calendar.time)
     }
 
+    @SuppressLint("SimpleDateFormat")
     fun formatTime(dateObject: Long?): String {
         val date = Date(dateObject!! * 1000L)
         val sdf = SimpleDateFormat("HH:mm")
         return sdf.format(date)
     }
+
+
 
     //OnlineChick
     private fun isOnline(ctx: Context): Boolean {
@@ -218,7 +227,5 @@ class HomeFragment : Fragment() {
         val activeNetwork = cm.activeNetworkInfo
         return activeNetwork != null
     }
-
-
 }
 

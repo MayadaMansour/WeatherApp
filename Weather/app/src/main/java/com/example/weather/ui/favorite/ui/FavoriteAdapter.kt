@@ -28,8 +28,6 @@ class FavoriteAdapter(
         val inflater: LayoutInflater =
             parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         binding = ItemFavoriteBinding.inflate(inflater, parent, false)
-
-
         return ViewHolder(binding)
     }
 
@@ -41,7 +39,6 @@ class FavoriteAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentObj = list.get(position)
         holder.binding.deleteIcon.setOnClickListener {
-
         }
 
         Glide.with(context)
@@ -54,10 +51,12 @@ class FavoriteAdapter(
             onClick.deleteWeathers(currentObj)
             notifyDataSetChanged()
         }
+
+        var lat =currentObj.citylat
+        var lon =currentObj.citylon
+
         holder.binding.cardFv.setOnClickListener {
-            val action =
-               FavoriteFragmentDirections.actionNavigationFavoriteToDetailesFragment()
-            Navigation.findNavController(it).navigate(action)
+            onClick.sendData(lat,lon)
         }
     }
     fun setList(favorite:List<City>){

@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class FavoriteViewModel( private val _irepo: RepoInterface) :ViewModel() {
+class FavoriteViewModel(private val _irepo: RepoInterface) : ViewModel() {
     private var _favoriteWeather: MutableLiveData<List<City>> =
         MutableLiveData<List<City>>()
     val favoriteWeather: LiveData<List<City>> = _favoriteWeather
@@ -41,7 +41,6 @@ class FavoriteViewModel( private val _irepo: RepoInterface) :ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             _irepo.insertWeathers(fav)
             getLocalWeathers()
-
         }
 
     }

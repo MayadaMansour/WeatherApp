@@ -1,10 +1,7 @@
 package com.example.weather.data.weather.local
 
 import androidx.room.TypeConverter
-import com.example.weather.models.City
-import com.example.weather.models.CurrentWeather
-import com.example.weather.models.Daily
-import com.example.weather.models.MyResponce
+import com.example.weather.models.*
 import com.google.gson.Gson
 
 
@@ -42,14 +39,14 @@ class Converter{
 
     @TypeConverter
     fun fromGsonToMinutely(string: String): List<Minutely> =
-        Gson().fromJson(string, Array<Minutely>::class.java).toList()
+        Gson().fromJson(string, Array<Minutely>::class.java).toList()*/
 
 
     @TypeConverter
-    fun fromAlertToGson(alerts: List<Alerts?>?) = Gson().toJson(alerts)!!
+    fun fromAlertToGson(alerts: List<Alert?>?) = Gson().toJson(alerts)!!
 
     @TypeConverter
     fun fromGsonToAlert(stringAlert: String?) =
-        Gson().fromJson(stringAlert, Array<Alerts?>::class.java)?.toList()*/
+        Gson().fromJson(stringAlert, Array<Alert?>::class.java)?.toList()
 
 }

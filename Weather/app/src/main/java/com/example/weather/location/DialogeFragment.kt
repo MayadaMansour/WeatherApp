@@ -1,16 +1,11 @@
 package com.example.weather.location
 
-import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.weather.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -19,7 +14,6 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class DialogeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var selectedDialogIndex: Int = 0
@@ -32,7 +26,6 @@ class DialogeFragment : Fragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
-
         }
     }
 
@@ -42,8 +35,6 @@ class DialogeFragment : Fragment() {
     ): View? {
         showAlertDialog()
         return inflater.inflate(R.layout.fragment_dialoge, container, false)
-
-
     }
 
 
@@ -73,10 +64,9 @@ class DialogeFragment : Fragment() {
                     val action =
                         DialogeFragmentDirections.actionDialogeFragmentToNavigationHome()
                     findNavController().navigate(action)
-
                 } else {
                     val action =
-                        DialogeFragmentDirections.actionDialogeFragmentToNavigationHome()
+                        DialogeFragmentDirections.actionDialogeFragmentToMapsFragment("Home")
                     findNavController().navigate(action)
                 }
                 Toast.makeText(requireActivity(), "$selectedLocation Selected", Toast.LENGTH_SHORT)

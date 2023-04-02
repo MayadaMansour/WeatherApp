@@ -1,6 +1,7 @@
 package com.example.weather.location
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import androidx.fragment.app.Fragment
@@ -11,9 +12,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
+import com.example.mvvm.Model.RepoInterface
+import com.example.mvvm.Model.Reposatory
 import com.example.weather.R
+import com.example.weather.data.weather.local.ConcreteLocalSource
+import com.example.weather.data.weather.netwok.Client
+import com.example.weather.data.weather.netwok.Servics
 import com.example.weather.databinding.FragmentMapsBinding
+import com.example.weather.models.City
+import com.example.weather.models.MyResponce
 import com.example.weather.ui.MainActivity
+import com.example.weather.ui.favorite.ui.FavoriteFragmentDirections
+import com.example.weather.ui.favorite.view.FavoriteViewModel
+import com.example.weather.ui.favorite.view.FavoriteViewModelFactory
+import com.example.weather.ui.home.ui.HomeFragment
+import com.example.weather.ui.home.view.HomeViewModel
+import com.example.weather.ui.home.view.ViewModelFactory
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -24,17 +42,27 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsFragment : Fragment() {
 
+    var lat: Double = 0.0
+    var lon: Double = 0.0
+    val args: MapsFragmentArgs by navArgs()
     lateinit var binding: FragmentMapsBinding
     lateinit var fusedClient: FusedLocationProviderClient
     lateinit var mapFragment: SupportMapFragment
     lateinit var mMap: GoogleMap
-    lateinit var mainActivity: MainActivity
+    lateinit var myViewModel: FavoriteViewModel
+    lateinit var homeViewModel: HomeViewModel
+    lateinit var repo: RepoInterface
+
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
         mMap.setOnMapClickListener {
             mMap.clear()
             mMap.addMarker(MarkerOptions().position(it))
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(it))
+            lat = it.latitude
+            lon = it.latitude
             goToLatLng(it.latitude, it.longitude, 16f)
+
         }
     }
 
@@ -60,20 +88,55 @@ class MapsFragment : Fragment() {
 
     private fun goToLatLng(latitude: Double, longitude: Double, float: Float) {
         var name = "Unknown "
-        var geocoder = Geocoder(requireContext()).getFromLocation(latitude, longitude, 1)
+        val geocoder = Geocoder(requireContext()).getFromLocation(latitude, longitude, 1)
         if (geocoder!!.size > 0)
-            name = "${geocoder?.get(0)?.subAdminArea} , ${geocoder?.get(0)?.adminArea}"
-        var latLng = LatLng(latitude, longitude)
-        var update: CameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, float)
+            name = "${geocoder.get(0)?.subAdminArea} , ${geocoder.get(0)?.adminArea}"
+        val latLng = LatLng(latitude, longitude)
+        val update: CameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, float)
         mMap.addMarker(MarkerOptions().position(latLng))
         mMap.animateCamera(update)
 
+        //Favorite/Home Fragment
+        binding.addToFav.setOnClickListener {
+            if (args.from.equals("Home")) {
+                activity?.getSharedPreferences("My Shared", Context.MODE_PRIVATE)?.edit()
+                    ?.apply {
+                        putBoolean("Map", false)
+                        putFloat("lat", lat.toFloat())
+                        putFloat("long", lon.toFloat())
+                        apply()
+                    }
+                val action =
+                    MapsFragmentDirections.actionMapsFragmentToNavigationHome()
+                Navigation.findNavController(it).navigate(action)
 
+            } else {
+                val favFactory = FavoriteViewModelFactory(
+                    Reposatory.getInstance(
+                        Client.getInstance(),
+                        ConcreteLocalSource(requireContext())
+                    )
+                )
+
+                myViewModel =
+                    ViewModelProvider(
+                        requireActivity(),
+                        favFactory
+                    )[FavoriteViewModel::class.java]
+
+                myViewModel.insertWeathers(City(latitude, longitude, name))
+                Toast.makeText(requireContext(), "Added To Favorite", Toast.LENGTH_SHORT).show()
+                val action =
+                    MapsFragmentDirections.actionMapsFragmentToNavigationFavorite()
+                Navigation.findNavController(it).navigate(action)
+            }
+        }
     }
 
+
     private fun goToSearchLocation() {
-        var searchLocation = binding.searchEdt.text.toString()
-        var list = Geocoder(requireContext()).getFromLocationName(searchLocation, 1)
+        val searchLocation = binding.searchEdt.text.toString()
+        val list = Geocoder(requireContext()).getFromLocationName(searchLocation, 1)
         if (list != null && list.size > 0) {
             var address: Address = list.get(0)
             goToLatLng(address.latitude, address.longitude, 16f)
@@ -82,21 +145,21 @@ class MapsFragment : Fragment() {
 
     @SuppressLint("SuspiciousIndentation")
     private fun mapInitialize() {
-         val locationRequest : LocationRequest = LocationRequest()
-         locationRequest.setInterval(5000)
-         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-         locationRequest.setSmallestDisplacement(14f)
-         locationRequest.setFastestInterval(3000)
-         binding.searchEdt.setOnEditorActionListener { v, actionId, event ->
-             if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE || event.action == KeyEvent.ACTION_DOWN
-             || event.action == KeyEvent.KEYCODE_ENTER
-             ) {
-             if (!binding.searchEdt.text.isNullOrEmpty())
-             goToSearchLocation()
-             }
-             false
-             }
-         fusedClient = LocationServices.getFusedLocationProviderClient(requireContext())
-         }
+        val locationRequest: LocationRequest = LocationRequest()
+        locationRequest.setInterval(5000)
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+        locationRequest.setSmallestDisplacement(14f)
+        locationRequest.setFastestInterval(3000)
+        binding.searchEdt.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE || event.action == KeyEvent.ACTION_DOWN
+                || event.action == KeyEvent.KEYCODE_ENTER
+            ) {
+                if (!binding.searchEdt.text.isNullOrEmpty())
+                    goToSearchLocation()
+            }
+            false
+        }
+        fusedClient = LocationServices.getFusedLocationProviderClient(requireContext())
+    }
 
 }
