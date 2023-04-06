@@ -18,6 +18,10 @@
             android:name="long"
             app:argType="float"
             android:defaultValue="0.0" />
+        <argument
+            android:name="map"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/navigation_favorite"
@@ -33,15 +37,26 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_alert"
-        android:name="com.example.weather.ui.alert.AlertFragment"
+        android:name="com.example.weather.ui.alert.ui.AlertFragment"
         android:label="Alert"
-        tools:layout="@layout/fragment_alert" />
+        tools:layout="@layout/fragment_alert" >
+        <action
+            android:id="@+id/action_navigation_alert_to_notificationAlertFragment"
+            app:destination="@id/notificationAlertFragment" />
+        <action
+            android:id="@+id/action_navigation_alert_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_setting"
         android:name="com.example.weather.ui.setting.SettingFragment"
         android:label="Setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_navigation_setting_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/dialogeFragment"
         android:name="com.example.weather.location.DialogeFragment"
@@ -83,6 +98,15 @@
             android:name="long"
             app:argType="float"
             android:defaultValue="0.0" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationAlertFragment"
+        android:name="com.example.weather.ui.alert.notification.NotificationAlertFragment"
+        android:label="fragment_notification_alert"
+        tools:layout="@layout/fragment_notification_alert" >
+        <action
+            android:id="@+id/action_notificationAlertFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
 
 

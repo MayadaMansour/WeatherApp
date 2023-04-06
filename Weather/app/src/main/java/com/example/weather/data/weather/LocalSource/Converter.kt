@@ -1,4 +1,4 @@
-package com.example.weather.data.weather.local
+package com.example.weather.data.weather.LocalSource
 
 import androidx.room.TypeConverter
 import com.example.weather.models.*

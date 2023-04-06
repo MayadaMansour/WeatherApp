@@ -1,13 +1,10 @@
-package com.example.weather.ui
+package com.example.weather.ui.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import android.widget.Toast
 import com.example.weather.R
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class StartActivity : AppCompatActivity() {
     lateinit var btn: Button

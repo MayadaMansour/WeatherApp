@@ -1,18 +1,23 @@
-package com.example.weather.data.weather.local
+package com.example.weather.data.weather.LocalSource
 
 import android.content.Context
 
 import com.example.day1.Room.DAO
 import com.example.day1.Room.WeatherDAO
 import com.example.mvvm.Room.LocalSource
+import com.example.weather.models.Alert
 import com.example.weather.models.City
-import com.example.weather.models.MyResponce
+import kotlinx.coroutines.flow.Flow
 
 
 class ConcreteLocalSource(context:Context): LocalSource {
     private val dao: DAO by lazy {
         val db:WeatherDAO= WeatherDAO.getInstance(context)
         db.getWeathersDao()
+    }
+    private val alert: AlertDao by lazy {
+        val db:WeatherDAO= WeatherDAO.getInstance(context)
+        db.getAlertDao()
     }
 
 
@@ -26,5 +31,20 @@ class ConcreteLocalSource(context:Context): LocalSource {
 
     override suspend fun getStoreWeathers(): List<City> {
         return dao.getAll()
+    }
+
+    override fun getAlerts(): Flow<List<Alert>> {
+        return alert.getAlerts()
+
+    }
+
+    override suspend fun insertAlert(alerts: Alert) {
+        alert.insertAlert(alerts)
+
+    }
+
+    override suspend fun deleteAlert(alerts: Alert)  {
+        alert.deleteAlert(alerts)
+
     }
 }

@@ -12,109 +12,60 @@
 
 
     <RelativeLayout
-        android:id="@+id/relativeLayout5"
-        android:layout_width="212dp"
-        android:layout_height="88dp"
+        android:id="@+id/temp_card"
+        android:layout_width="335dp"
+        android:layout_height="167dp"
         android:layout_marginStart="45dp"
         android:layout_marginEnd="45dp"
         android:background="@drawable/sheet_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.99"
+        app:layout_constraintHorizontal_bias="0.98"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85">
+        app:layout_constraintVertical_bias="0.799">
 
-        <RadioButton
-            android:id="@+id/on"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/temp_radio_group"
+            android:layout_width="322dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="125dp"
-            android:layout_marginBottom="22dp"
-            android:text="Enable"
-            android:textColor="#FFFFFF" />
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <RadioButton
-            android:id="@+id/of"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="33dp"
-            android:layout_marginBottom="23dp"
-            android:text="Disable"
-            android:textColor="#FFFFFF" />
+            <RadioButton
+                android:id="@+id/kelvin_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="Temperature is Kelvin, Speed is m/s"
+                android:textColor="#FFFFFF" />
+
+            <RadioButton
+                android:id="@+id/celsius_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginEnd="5dp"
+                android:text="Temperature is Celsius, Speed is m/s "
+                android:textColor="#FFFFFF" />
+
+            <RadioButton
+                android:id="@+id/fehrenheit_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginEnd="5dp"
+                android:text="Temperature is Fahrenheit, Speed is mm/h"
+                android:textColor="#FFFFFF" />
+        </RadioGroup>
     </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout4"
-        android:layout_width="211dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="45dp"
-        android:background="@drawable/sheet_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.981"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.661">
-
-        <RadioButton
-            android:id="@+id/kelvin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="21dp"
-            android:layout_marginBottom="58dp"
-            android:text="Kelvin"
-            android:textColor="#FFFFFF" />
-
-        <RadioButton
-            android:id="@+id/celsius"
-            android:layout_width="88dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="106dp"
-            android:layout_marginBottom="58dp"
-            android:text="Celsius"
-            android:textColor="#FFFFFF" />
-
-        <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="60dp"
-            android:layout_marginBottom="9dp"
-            android:text="Fehrenheit"
-            android:textColor="#FFFFFF" />
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/wind"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="328dp"
-        android:text="Winds"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/loc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="260dp"
         android:text="Location"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
@@ -123,85 +74,99 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="212dp"
-        android:layout_height="88dp"
+        android:id="@+id/loc_card"
+        android:layout_width="286dp"
+        android:layout_height="83dp"
         android:layout_marginStart="45dp"
         android:layout_marginEnd="45dp"
         android:background="@drawable/sheet_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.981"
+        app:layout_constraintHorizontal_bias="0.403"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.083">
+        app:layout_constraintVertical_bias="0.222">
 
-        <RadioButton
-            android:id="@+id/gps"
+        <RadioGroup
+            android:id="@+id/language_radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="125dp"
-            android:layout_marginBottom="22dp"
-            android:text="GPS"
-            android:textColor="#FFFFFF" />
+            android:layout_marginEnd="71dp"
+            android:layout_marginBottom="18dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <RadioButton
-            android:id="@+id/map"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="33dp"
-            android:layout_marginBottom="23dp"
-            android:text="Map"
-            android:textColor="#FFFFFF" />
+            <RadioButton
+                android:id="@+id/english_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginEnd="15dp"
+                android:checked="false"
+                android:text="English"
+                android:textColor="#FFFFFF" />
+
+            <RadioButton
+                android:id="@+id/arabic_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="Arabic"
+                android:textColor="#FFFFFF" />
+        </RadioGroup>
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout2"
-        android:layout_width="212dp"
-        android:layout_height="88dp"
+        android:id="@+id/lang_card"
+        android:layout_width="305dp"
+        android:layout_height="84dp"
         android:layout_marginStart="45dp"
         android:layout_marginEnd="45dp"
         android:background="@drawable/sheet_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.981"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.275">
+        app:layout_constraintVertical_bias="0.457">
 
-        <RadioButton
-            android:id="@+id/arabic"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/location_radio_group"
+            android:layout_width="221dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="125dp"
-            android:layout_marginBottom="22dp"
-            android:text="Arabic"
-            android:textColor="#FFFFFF" />
+            android:layout_marginEnd="44dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <RadioButton
-            android:id="@+id/english"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="33dp"
-            android:layout_marginBottom="23dp"
-            android:text="English"
-            android:textColor="#FFFFFF" />
+            <RadioButton
+                android:id="@+id/gps_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginEnd="15dp"
+                android:checked="false"
+                android:text="Gps"
+                android:textColor="#FFFFFF" />
+
+            <RadioButton
+                android:id="@+id/map_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="MAP"
+                android:textColor="#FFFFFF" />
+        </RadioGroup>
     </RelativeLayout>
+
 
     <TextView
         android:id="@+id/lang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="212dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="104dp"
         android:text="Language"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
@@ -213,65 +178,14 @@
         android:id="@+id/temp_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="444dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="416dp"
         android:text="Temprature"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/notification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="564dp"
-        android:text="Notification"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout3"
-        android:layout_width="212dp"
-        android:layout_height="88dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="45dp"
-        android:background="@drawable/sheet_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.981"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.452">
-
-        <RadioButton
-            android:id="@+id/meters_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="107dp"
-            android:layout_marginBottom="20dp"
-            android:text="Meters/Sec"
-            android:textColor="#FFFFFF" />
-
-        <RadioButton
-            android:id="@+id/mile_hours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="21dp"
-            android:text="Mile/Hou"
-            android:textColor="#FFFFFF" />
-    </RelativeLayout>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation_bar"

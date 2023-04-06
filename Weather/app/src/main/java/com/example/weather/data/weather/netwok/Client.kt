@@ -7,8 +7,8 @@ class Client private constructor(): RemoteSourceInterface {
     val service: Servics by lazy {
         RetrofitHelper.getInstance().create(Servics::class.java)
     }
-    override suspend fun getWeatherOverNetwork(lat:Double,lon:Double,exclude:String,appid:String) : Response<MyResponce> {
-        val response=service.getAllWeather(lat,lon,"huorly","3b2709ccc4bdcdaac7f7ea5c91b3da94")
+    override suspend fun getWeatherOverNetwork(lat:Double,lon:Double,exclude:String,appid:String,lang:String,units:String) : Response<MyResponce> {
+        val response=service.getAllWeather(lat,lon,exclude,appid,lang,units)
         return response
     }
     companion object {

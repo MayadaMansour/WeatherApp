@@ -22,7 +22,6 @@ class FavoriteViewModel(private val _irepo: RepoInterface) : ViewModel() {
         getLocalWeathers()
     }
 
-
     fun deleteWeathers(fav: City) {
         viewModelScope.launch(Dispatchers.IO) {
             _irepo.deleteWeathers(fav)
@@ -33,15 +32,12 @@ class FavoriteViewModel(private val _irepo: RepoInterface) : ViewModel() {
     fun getLocalWeathers() {
         viewModelScope.launch(Dispatchers.IO) {
             _favoriteWeather.postValue(_irepo.getStoreWeathers())
-
         }
     }
-
     fun insertWeathers(fav: City) {
         viewModelScope.launch(Dispatchers.IO) {
             _irepo.insertWeathers(fav)
             getLocalWeathers()
         }
-
     }
 }

@@ -2,11 +2,13 @@ package com.example.weather.location
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.location.Address
 import android.location.Geocoder
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -16,22 +18,14 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
-import com.example.mvvm.Model.RepoInterface
 import com.example.mvvm.Model.Reposatory
 import com.example.weather.R
-import com.example.weather.data.weather.local.ConcreteLocalSource
+import com.example.weather.data.weather.LocalSource.ConcreteLocalSource
 import com.example.weather.data.weather.netwok.Client
-import com.example.weather.data.weather.netwok.Servics
 import com.example.weather.databinding.FragmentMapsBinding
 import com.example.weather.models.City
-import com.example.weather.models.MyResponce
-import com.example.weather.ui.MainActivity
-import com.example.weather.ui.favorite.ui.FavoriteFragmentDirections
 import com.example.weather.ui.favorite.view.FavoriteViewModel
 import com.example.weather.ui.favorite.view.FavoriteViewModelFactory
-import com.example.weather.ui.home.ui.HomeFragment
-import com.example.weather.ui.home.view.HomeViewModel
-import com.example.weather.ui.home.view.ViewModelFactory
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -50,8 +44,8 @@ class MapsFragment : Fragment() {
     lateinit var mapFragment: SupportMapFragment
     lateinit var mMap: GoogleMap
     lateinit var myViewModel: FavoriteViewModel
-    lateinit var homeViewModel: HomeViewModel
-    lateinit var repo: RepoInterface
+    lateinit var se: SharedPreferences
+
 
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
@@ -73,6 +67,7 @@ class MapsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMapsBinding.inflate(inflater, container, false)
+        se = activity?.getSharedPreferences("My Shared", Context.MODE_PRIVATE)!!
         mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(callback)
         mapInitialize()
@@ -96,25 +91,24 @@ class MapsFragment : Fragment() {
         mMap.addMarker(MarkerOptions().position(latLng))
         mMap.animateCamera(update)
 
+
         //Favorite/Home Fragment
         binding.addToFav.setOnClickListener {
             if (args.from.equals("Home")) {
-                activity?.getSharedPreferences("My Shared", Context.MODE_PRIVATE)?.edit()
-                    ?.apply {
-                        putBoolean("Map", false)
-                        putFloat("lat", lat.toFloat())
-                        putFloat("long", lon.toFloat())
-                        apply()
-                    }
                 val action =
-                    MapsFragmentDirections.actionMapsFragmentToNavigationHome()
+                    MapsFragmentDirections.actionMapsFragmentToNavigationHome(
+                        lat.toFloat(),
+                        lon.toFloat(),
+                        true
+                    )
                 Navigation.findNavController(it).navigate(action)
 
             } else {
                 val favFactory = FavoriteViewModelFactory(
                     Reposatory.getInstance(
                         Client.getInstance(),
-                        ConcreteLocalSource(requireContext())
+                        ConcreteLocalSource(requireContext()),
+                        PreferenceManager.getDefaultSharedPreferences(requireContext())
                     )
                 )
 
@@ -133,7 +127,7 @@ class MapsFragment : Fragment() {
         }
     }
 
-
+//----------------------------------------------------------------------------------------//
     private fun goToSearchLocation() {
         val searchLocation = binding.searchEdt.text.toString()
         val list = Geocoder(requireContext()).getFromLocationName(searchLocation, 1)

@@ -8,7 +8,7 @@
     android:background="@drawable/weather"
     android:translationZ="30dp"
     app:constraint_referenced_tags="30dp"
-    tools:context=".ui.StartActivity">
+    tools:context=".ui.main.StartActivity">
 
     <TextView
         android:id="@+id/title"
