@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="app_settings">Settings</string>
+    <string name="language">language</string>
+    <string name="english">English</string>
+    <string name="arabic">Arabic</string>
+    <string name="temperature">Temperature</string>
+    <string name="location">Location</string>
+    <string name="gps">Gps</string>
+    <string name="map">Map</string>
+    <string name="wind_speed">Wind_speed</string>
+    <string name="meter_sec">Meter_sec</string>
+    <string name="miles_hour">Miles_hour</string>
+    <string name="save">Save</string>
+    <string name="choose_location">How do you want to choose location</string>
+    <string name="Pressure">Pressure</string>
+    <string name="Humidity">Humidity</string>
+    <string name="Sun_Rise">Sun_Rise</string>
+    <string name="Visibility">Visibility</string>
+    <string name="WindSpeed">WindSpeed</string>
+    <string name="Cloud">Cloud</string>
+    <string name="Pascal">Pascal</string>
+    <string name="MiliPerHour">mm/h</string>
+    <string name="api_key" translatable="false">AIzaSyAbuHdF1hB_ddtCtgEZ7iE3cDqXk4zpVJU</string>
+    <string name="to">To</string>
+    <string name="from">From</string>
+    <string name="celsius">Temperature is Celsius, Speed is m/s </string>
+    <string name="kelvin">Temperature is Kelvin, Speed is m/s</string>
+    <string name="fehrenheit">Temperature is Fahrenheit, Speed is mm/h</string>
+    <string name="succ_deleted">deleted</string>
+    <string name="Search">Search</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="weatherAlerts">weatherAlerts</string>
+    <string name="features">features</string>
+    <string name="where">where</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="time">Time</string>
+    <string name="notification">Notification</string>
+    <string name="alarm">Alarm</string>
+    <string name="alert">Alert</string>
+    <string name="favorite">Favorite</string>
+    <string name="at">At</string>
+    <string name="SuccessDeleted">Success Deleted</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="AWTD">Are You Want to delete</string>
+    <string name="end_after_start">End date must come after start date</string>
+    <string name="you_are_offline">You are offline. Some functionality may be unavailable.</string>
+    <string name="there_is_no_alarm_yet">There is no alarm yet</string>
+    <string name="i_need_this_location">I need this location</string>
+    <string name="Celsusi">°C</string>
+    <string name="Ferherhit">F</string>
+    <string name="KELVIN">°K</string>
+    <string name="MeterPerSecond">m/s</string>
+    <string name="title_activity_notification_screen">ScreenNotification</string>
+    <string name="notification_channel">NotificationChannel</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+
+</resources>
