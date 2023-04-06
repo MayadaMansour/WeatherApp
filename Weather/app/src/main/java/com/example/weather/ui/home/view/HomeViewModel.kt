@@ -15,9 +15,9 @@ class HomeViewModel(private val repo: RepoInterface) : ViewModel() {
     private var _currentWeather = MutableLiveData<MyResponce>()
     var currentWeather: LiveData<MyResponce> = _currentWeather
 
-    fun getWeatherFromApi(lat: Double, lon: Double, exclude: String, appid: String) {
+    fun getWeatherFromApi(lat: Double, lon: Double, exclude: String, appid: String,lang:String,units:String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _currentWeather.postValue(repo.getWeatherOverNetwork(lat, lon, exclude, appid))
+            _currentWeather.postValue(repo.getWeatherOverNetwork(lat, lon, exclude, appid,lang,units))
         }
     }
 

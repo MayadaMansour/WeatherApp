@@ -1,8 +1,10 @@
 package com.example.day1.Room
 
 import androidx.room.*
+import com.example.weather.models.Alert
 import com.example.weather.models.City
 import com.example.weather.models.MyResponce
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
@@ -17,3 +19,5 @@ interface DAO {
     suspend fun delete(city: City): Int
 
 }
+
+

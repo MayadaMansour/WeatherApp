@@ -11,7 +11,7 @@
     tools:context=".ui.detaile.ui.DetailesFragment">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout"
+        android:id="@+id/loc_card"
         android:layout_width="318dp"
         android:layout_height="179dp"
         android:layout_marginStart="45dp"

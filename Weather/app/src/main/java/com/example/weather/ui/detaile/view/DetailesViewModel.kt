@@ -14,9 +14,9 @@ class DetailesViewModel(private val repo: RepoInterface) : ViewModel() {
     private var _currentWeather = MutableLiveData<MyResponce>()
     var currentWeather: LiveData<MyResponce> = _currentWeather
 
-    fun getWeatherFromApi(latitude: Double, longitude: Double, exclude: String, appid: String) {
+    fun getWeatherFromApi(latitude: Double, longitude: Double, exclude: String, appid: String,lang:String,units:String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _currentWeather.postValue(repo.getWeatherOverNetwork(latitude, longitude, exclude, appid))
+            _currentWeather.postValue(repo.getWeatherOverNetwork(latitude, longitude, exclude, appid,lang,units))
         }
     }
 

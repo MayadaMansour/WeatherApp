@@ -1,5 +1,7 @@
 package com.example.weather.location
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,6 +20,8 @@ class DialogeFragment : Fragment() {
     private var param2: String? = null
     private var selectedDialogIndex: Int = 0
     private val list = arrayOf("GPS", "Map")
+    lateinit var se: SharedPreferences
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +38,9 @@ class DialogeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         showAlertDialog()
+        se = activity?.getSharedPreferences("My Shared", Context.MODE_PRIVATE)!!
         return inflater.inflate(R.layout.fragment_dialoge, container, false)
+
     }
 
 
@@ -59,8 +65,13 @@ class DialogeFragment : Fragment() {
                 selectedDialogIndex = which
                 selectedLocation = list[which]
             }
+
             .setPositiveButton("Ok") { dialog, which ->
                 if (selectedLocation.equals("GPS")) {
+                    activity?.getSharedPreferences("My Shared", Context.MODE_PRIVATE)?.edit()
+                        ?.apply {
+                            putString("loc", "GPS")
+                        }
                     val action =
                         DialogeFragmentDirections.actionDialogeFragmentToNavigationHome()
                     findNavController().navigate(action)
@@ -68,6 +79,8 @@ class DialogeFragment : Fragment() {
                     val action =
                         DialogeFragmentDirections.actionDialogeFragmentToMapsFragment("Home")
                     findNavController().navigate(action)
+
+
                 }
                 Toast.makeText(requireActivity(), "$selectedLocation Selected", Toast.LENGTH_SHORT)
                     .show()

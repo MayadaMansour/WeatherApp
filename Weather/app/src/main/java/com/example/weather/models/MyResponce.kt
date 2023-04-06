@@ -3,7 +3,7 @@ package com.example.weather.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.example.weather.data.weather.local.Converter
+import com.example.weather.data.weather.LocalSource.Converter
 
 
 @Entity(tableName = "Weather")
