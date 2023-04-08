@@ -47,30 +47,18 @@ class DailyAdapter(var current: List<Daily>) : RecyclerView.Adapter<DailyAdapter
             Context.MODE_PRIVATE
         )!!
         val language = sharedPreferences.getString(Constants.lang, "en")!!
-        holder.binding.tempDay.text = currentObj.temp.toString() + Constants.CELSIUS
+        holder.binding.tempDay.text = "$max/$min°C"
+
         if (language.equals("en")) {
             holder.binding.tempDay.text =
-                "${currentObj.temp}${Utils.getCurrentTemperature(context)}"
+                "$max/$min°C"
         } else {
             holder.binding.tempDay.text =
-                "${Utils.convertStringToArabic(currentObj.temp.toString())}${
-                    Utils.getCurrentTemperature(
-                        context
-                    )
-                }"
+                "$max/$min°C"
         }
         holder.binding.countryDay.text = convertToDay(currentObj.dt, language)
+        holder.binding.daesDay.text = currentObj.weather.get(0).description
 
-        /*     val date= Date(currentObj.dt*1000L)
-             val sdf= SimpleDateFormat("d")
-             sdf.timeZone= TimeZone.getDefault()
-             val formatedData=sdf.format(date)
-             val calendar=Calendar.getInstance()
-             val intDay=formatedData.toInt()
-             calendar.set(Calendar.DAY_OF_MONTH,intDay)
-             val format=SimpleDateFormat(/* pattern = */ "EEEE")
-             val day=format.format(calendar.time)
-             binding.countryDay.text=day*/
 
     }
 }

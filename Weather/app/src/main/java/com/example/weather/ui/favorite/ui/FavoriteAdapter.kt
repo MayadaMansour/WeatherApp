@@ -41,7 +41,6 @@ class FavoriteAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentObj = list.get(position)
-
         holder.binding.deleteIcon.setOnClickListener {
             onClick.deleteWeathers(currentObj)
             notifyDataSetChanged()
@@ -54,6 +53,7 @@ class FavoriteAdapter(
         Glide.with(context)
             .load("https://openweathermap.org/img/wn/${currentObj.city.get(0)}@2x.png")
             .into(holder.binding.iconFav)
+
         val sharedPreference =  context.getSharedPreferences("getSharedPreferences", Context.MODE_PRIVATE)
         val language =  sharedPreference.getString(Constants.lang,"en") !!
 
@@ -62,6 +62,7 @@ class FavoriteAdapter(
 
         val date = currentObj.city.let  {
             convertToDate(it.get(0).toLong(),language) }
+
         if(language=="en"){
             holder.binding.countryFav.text ="${currentObj.city}"
             holder.binding.daesFav.text =" ${date}"
@@ -69,6 +70,12 @@ class FavoriteAdapter(
             holder.binding.countryFav.text ="${currentObj.city} "
             holder.binding.daesFav.text =" ${date}"
         }
+
+
+
+
+
+
 
     }
 

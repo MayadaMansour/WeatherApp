@@ -2,9 +2,10 @@ package com.example.weather.data.weather.netwok
 
 import com.example.weather.models.Alert
 import com.example.weather.models.MyResponce
+import retrofit2.Response
 
 sealed class  ApiState {
-    class Success(var data : MyResponce):ApiState()
+    class Success(var data: Response<MyResponce>):ApiState()
     class Fail(val msg : Throwable):ApiState()
     object Loading :ApiState()
 }

@@ -2,6 +2,8 @@ package com.example.weather.data.weather.LocalSource
 
 import androidx.room.*
 import com.example.weather.models.Alert
+import com.example.weather.models.AlertSettings
+import com.google.android.material.bottomsheet.BottomSheetBehavior.SaveFlags
 import kotlinx.coroutines.flow.Flow
 @Dao
 interface AlertDao {
@@ -13,4 +15,5 @@ interface AlertDao {
 
     @Delete
     suspend fun deleteAlert(alerts: Alert):Int
+
 }

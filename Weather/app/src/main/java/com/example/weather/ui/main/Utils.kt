@@ -102,9 +102,7 @@ object Utils {
             .replace(" ", "")
     }
     fun getAddressEnglish(context: Context, lat: Double?, lon: Double?):String{
-
         var address:MutableList<Address>?=null
-
         val geocoder= Geocoder(context)
         address =geocoder.getFromLocation(lat!!,lon!!,1)
         if (address?.isEmpty()==true)
@@ -152,10 +150,23 @@ object Utils {
         return sdf.format(currentTime)
     }
     @SuppressLint("SimpleDateFormat")
-    fun getCurrentTime(): String {
-        val currentTime = Calendar.getInstance().time
+    fun getCurrentTime(): Pair<String,Long> {
+        val calender=Calendar.getInstance()
+        val currentTime = calender.time
         val sdf = SimpleDateFormat("HH:mm")
-        return sdf.format(currentTime)
+        val alert=calender.timeInMillis
+        return Pair( sdf.format(currentTime),alert)
+
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun getCurrentTime2(): Pair<String,Long> {
+        val calender=Calendar.getInstance()
+        val currentTime = calender.time
+        val sdf = SimpleDateFormat("HH:mm")
+        val alert=calender.timeInMillis
+        return Pair( sdf.format(currentTime),alert)
+
     }
     @SuppressLint("SimpleDateFormat")
     fun getCurrentDatePlusOne(): String {

@@ -5,11 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Build
 import android.preference.PreferenceManager
-import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.work.WorkerParameters
 import androidx.work.CoroutineWorker
 import androidx.work.WorkManager
@@ -19,40 +15,40 @@ import com.example.weather.data.weather.netwok.Client
 import com.example.weather.models.Alert
 import com.example.weather.ui.main.Constants
 import com.google.gson.Gson
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+
 
 
 class doWorker(context: Context, workerParameters: WorkerParameters) :
     CoroutineWorker(context, workerParameters) {
     lateinit var sharedPreferences: SharedPreferences
+    lateinit var alert: Alert
+
 
     override suspend fun doWork(): Result {
         sharedPreferences =
             applicationContext.getSharedPreferences("My Shared", Context.MODE_PRIVATE)!!
+        alert = Alert(22, 22, 22.2, 22.2, "City")
         val repo = Reposatory.getInstance(
             Client.getInstance(),
             ConcreteLocalSource(applicationContext),
             PreferenceManager.getDefaultSharedPreferences(applicationContext)
         )
-
         val alertJson = inputData.getString(Constants.Alert)
-        val alert = Gson().fromJson(alertJson, Alert::class.java)
+        var alert = Gson().fromJson(alertJson, Alert::class.java)
+        //val alertJson = inputData.getString(Constants.Alert)
         if (alert.endDay in alert.startDay..alert.endDay) {
             setAlarm(alert.startDay, alertJson, alert.endDay.toInt())
-            Toast.makeText(applicationContext, "Daily Alert", Toast.LENGTH_LONG).show()
         }
         if (alert.endDay < System.currentTimeMillis()) {
             WorkManager.getInstance(applicationContext)
                 .cancelAllWorkByTag(alert.startDay.toString())
             repo.deleteAlert(alert)
             canelAlarm(applicationContext, alert.toString(), alert.startDay.toInt())
-            Toast.makeText(applicationContext, "Cancel Alert", Toast.LENGTH_LONG).show()
         }
         return Result.success()
     }
 
-//////////////////////////////////Functions//////////////////////////////////////////////////////
+    //////////////////////////////////Functions//////////////////////////////////////////////////////
     private fun setAlarm(dateInMillis: Long, alert: String?, requestCode: Int) {
         var alarmMsg: AlarmManager? = null
         lateinit var intent: PendingIntent
@@ -64,7 +60,6 @@ class doWorker(context: Context, workerParameters: WorkerParameters) :
                         applicationContext, requestCode, intent,
                         PendingIntent.FLAG_IMMUTABLE
                     )
-
                 }
         alarmMsg.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,

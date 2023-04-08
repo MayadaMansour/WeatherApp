@@ -38,10 +38,8 @@ class AlertFragment : Fragment() {
     lateinit var dialog: ProgressDialog
     private lateinit var sharedPreferences: SharedPreferences
     lateinit var alertViewModel: AlertViewModel
-    lateinit var alertAdapter: AlertAdapter
     private var _binding: FragmentAlertBinding? = null
     private val binding get() = _binding!!
-
 
     @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("SetTextI18n", "SimpleDateFormat", "NewApi")
@@ -92,8 +90,6 @@ class AlertFragment : Fragment() {
                                     }
                                     layoutManager = LinearLayoutManager(requireContext())
                                 }
-
-
                         }
                         else -> {}
                     }

@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:text="Temperature is Kelvin, Speed is m/s"
+                android:text="@string/kelvin"
                 android:textColor="#FFFFFF" />
 
             <RadioButton
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginEnd="5dp"
-                android:text="Temperature is Celsius, Speed is m/s "
+                android:text="@string/celsius"
                 android:textColor="#FFFFFF" />
 
             <RadioButton
@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginEnd="5dp"
-                android:text="Temperature is Fahrenheit, Speed is mm/h"
+                android:text="@string/fehrenheit"
                 android:textColor="#FFFFFF" />
         </RadioGroup>
     </RelativeLayout>
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="168dp"
         android:layout_marginTop="260dp"
-        android:text="Location"
+        android:text="@string/location"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -104,7 +104,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="15dp"
                 android:checked="false"
-                android:text="English"
+                android:text="@string/english"
                 android:textColor="#FFFFFF" />
 
             <RadioButton
@@ -112,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:text="Arabic"
+                android:text="@string/arabic"
                 android:textColor="#FFFFFF" />
         </RadioGroup>
     </RelativeLayout>
@@ -147,7 +147,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="15dp"
                 android:checked="false"
-                android:text="Gps"
+                android:text="@string/gps"
                 android:textColor="#FFFFFF" />
 
             <RadioButton
@@ -155,7 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:text="MAP"
+                android:text="@string/map"
                 android:textColor="#FFFFFF" />
         </RadioGroup>
     </RelativeLayout>
@@ -167,7 +167,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="156dp"
         android:layout_marginTop="104dp"
-        android:text="Language"
+        android:text="@string/language"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -180,7 +180,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="156dp"
         android:layout_marginTop="416dp"
-        android:text="Temprature"
+        android:text="@string/temperature"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"

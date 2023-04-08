@@ -11,7 +11,7 @@ import com.example.weather.models.City
 import com.example.weather.models.MyResponce
 
 
-@Database(entities = arrayOf(City::class, Alert::class, MyResponce::class), version = 3)
+@Database(entities = arrayOf(City::class, Alert::class, MyResponce::class), version = 4)
 abstract class WeatherDAO : RoomDatabase() {
     abstract fun getWeathersDao(): DAO
     abstract fun getAlertDao(): AlertDao
@@ -22,7 +22,7 @@ abstract class WeatherDAO : RoomDatabase() {
         fun getInstance(ctx: Context): WeatherDAO {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    ctx.applicationContext, WeatherDAO::class.java, "weather4"
+                    ctx.applicationContext, WeatherDAO::class.java, "weather5"
                 )
                     .build()
                 INSTANCE = instance

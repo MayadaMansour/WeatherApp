@@ -52,12 +52,12 @@ class SettingFragment : Fragment() {
             when (languageRadioButton.text) {
                 getString(R.string.arabic) -> {
                     sharedPreferences.edit()
-                        .putString(Constants.lang, Constants.Enum_language.ar.toString()).commit()
+                        .putString(Constants.lang, Constants.Enum_language.ar.toString()).apply()
                     setLan("ar")
                 }
                 getString(R.string.english) -> {
                     sharedPreferences.edit()
-                        .putString(Constants.lang, Constants.Enum_language.en.toString()).commit()
+                        .putString(Constants.lang, Constants.Enum_language.en.toString()).apply()
                     setLan("an")
                 }
             }
@@ -70,7 +70,7 @@ class SettingFragment : Fragment() {
                 getString(R.string.map) -> {
                     sharedPreferences.edit()
                         .putString(Constants.LOCATION, Constants.Enum_LOCATION.map.toString())
-                        .commit()
+                        .apply()
                     val action =
                         SettingFragmentDirections.actionNavigationSettingToMapsFragment("Home")
                     Navigation.findNavController(requireView()).navigate(action)
@@ -79,7 +79,7 @@ class SettingFragment : Fragment() {
                 getString(R.string.gps) -> {
                     sharedPreferences.edit()
                         .putString(Constants.LOCATION, Constants.Enum_LOCATION.gps.toString())
-                        .commit()
+                        .apply()
                 }
 
             }
@@ -88,19 +88,19 @@ class SettingFragment : Fragment() {
         _binding!!.tempRadioGroup.setOnCheckedChangeListener { group, checkedId ->
             tempRadioButton = view.findViewById<View>(checkedId) as RadioButton
             when (tempRadioButton.text.toString()) {
-                getString(R.string.Celsusi) -> {
+                getString(R.string.celsius) -> {
                     sharedPreferences.edit()
-                        .putString(Constants.units, Constants.Enum_units.metric.toString()).commit()
+                        .putString(Constants.units, Constants.Enum_units.metric.toString()).apply()
                 }
-                getString(R.string.KELVIN) -> {
+                getString(R.string.kelvin) -> {
                     sharedPreferences.edit()
                         .putString(Constants.units, Constants.Enum_units.standard.toString())
-                        .commit()
+                        .apply()
                 }
-                getString(R.string.Ferherhit) -> {
+                getString(R.string.fehrenheit) -> {
                     sharedPreferences.edit()
                         .putString(Constants.units, Constants.Enum_units.imperial.toString())
-                        .commit()
+                        .apply()
                 }
             }
 
@@ -128,24 +128,27 @@ class SettingFragment : Fragment() {
             sharedPreferences.getString(Constants.LOCATION, Constants.Enum_LOCATION.gps.toString())
         val units =
             sharedPreferences.getString(Constants.units, Constants.Enum_units.metric.toString())
+
         if (lang == Constants.Enum_language.en.toString()) {
             _binding!!.languageRadioGroup.check(binding.englishRadioButton.id)
         } else {
             _binding!!.languageRadioGroup.check(binding.arabicRadioButton.id)
         }
+
         if (loc == Constants.Enum_LOCATION.map.toString()) {
-            _binding!!.languageRadioGroup.check(binding.mapRadioButton.id)
+            _binding!!.locationRadioGroup.check(binding.mapRadioButton.id)
         } else {
-            _binding!!.languageRadioGroup.check(binding.gpsRadioButton.id)
+            _binding!!.locationRadioGroup.check(binding.gpsRadioButton.id)
         }
+
         if (units == Constants.Enum_units.standard.toString()) {
-            _binding!!.languageRadioGroup.check(binding.kelvinRadioButton.id)
+            _binding!!.tempRadioGroup.check(binding.kelvinRadioButton.id)
         }
         if (units == Constants.Enum_units.imperial.toString()) {
-            _binding!!.languageRadioGroup.check(binding.fehrenheitRadioButton.id)
+            _binding!!.tempRadioGroup.check(binding.fehrenheitRadioButton.id)
         }
         if (units == Constants.Enum_units.metric.toString()) {
-            _binding!!.languageRadioGroup.check(binding.celsiusRadioButton.id)
+            _binding!!.tempRadioGroup.check(binding.celsiusRadioButton.id)
         }
     }
 
