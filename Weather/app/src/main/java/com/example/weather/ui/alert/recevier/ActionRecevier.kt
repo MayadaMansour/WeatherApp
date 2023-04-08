@@ -18,5 +18,6 @@ class ActionRecevier:BroadcastReceiver() {
             alarm.stop()
             notification.alarmNotificationManager(context).cancel(1)
         }
+
     }
 }

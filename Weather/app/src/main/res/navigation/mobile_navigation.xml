@@ -29,11 +29,15 @@
         android:label="Favorite"
         tools:layout="@layout/fragment_favorite" >
         <action
-            android:id="@+id/action_navigation_favorite_to_mapsFragment"
-            app:destination="@id/mapsFragment" />
-        <action
             android:id="@+id/fromFavToDetails"
             app:destination="@id/detailesFragment" />
+        <action
+            android:id="@+id/action_navigation_favorite_to_mapsFragment"
+            app:destination="@id/mapsFragment" >
+            <argument
+                android:name="from"
+                android:defaultValue="default" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/navigation_alert"

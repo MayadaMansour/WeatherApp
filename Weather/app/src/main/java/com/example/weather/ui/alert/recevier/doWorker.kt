@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import android.widget.Toast
 import androidx.work.WorkerParameters
 import androidx.work.CoroutineWorker
 import androidx.work.WorkManager
@@ -15,7 +16,8 @@ import com.example.weather.data.weather.netwok.Client
 import com.example.weather.models.Alert
 import com.example.weather.ui.main.Constants
 import com.google.gson.Gson
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 class doWorker(context: Context, workerParameters: WorkerParameters) :
@@ -43,7 +45,10 @@ class doWorker(context: Context, workerParameters: WorkerParameters) :
             WorkManager.getInstance(applicationContext)
                 .cancelAllWorkByTag(alert.startDay.toString())
             repo.deleteAlert(alert)
-            canelAlarm(applicationContext, alert.toString(), alert.startDay.toInt())
+            canelAlarm(applicationContext, alert.toString(),alert.startDay.toInt())
+            withContext(Dispatchers.Main) {
+                Toast.makeText(applicationContext, "your worker ended", Toast.LENGTH_SHORT).show()
+            }
         }
         return Result.success()
     }

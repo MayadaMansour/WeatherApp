@@ -70,8 +70,6 @@ class AlertRecevier : BroadcastReceiver() {
                 repo.deleteAlert(alert)
                 WorkManager.getInstance(context.applicationContext)
                     .cancelAllWorkByTag(alert.startDay.toString())
-                WorkManager.getInstance(context.applicationContext)
-                    .cancelAllWorkByTag(alert.startDay.toString())
             }
             try {
                 repo.getWeatherOverNetwork(

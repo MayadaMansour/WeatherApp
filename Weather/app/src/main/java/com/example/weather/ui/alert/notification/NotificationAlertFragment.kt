@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
@@ -69,7 +70,7 @@ class NotificationAlertFragment : DialogFragment() {
         _binding = FragmentNotificationAlertBinding.inflate(inflater, container, false)
         val root: View = binding.root
         getDialog()?.requestWindowFeature(STYLE_NO_TITLE)
-        setCancelable(false)
+        setCancelable(true)
         sharedPreferences = activity?.getSharedPreferences("My Shared", Context.MODE_PRIVATE)!!
         alert = Alert(getCurrentTime().second, getCurrentTime2().second, 0.0, 0.0, "City")
         val repo = Reposatory.getInstance(
@@ -99,7 +100,7 @@ class NotificationAlertFragment : DialogFragment() {
             binding.btnKo.isEnabled = false
             Toast.makeText(requireContext(), "No Connection ", Toast.LENGTH_SHORT).show()
         }
-        if (alarm?.isALarm == true && alarm.isNotification == false) {
+        if (alarm?.isALarm == true && !alarm.isNotification) {
             binding.radioButtonAlarm.isChecked = true
         }
         if (alarm?.isALarm == false && alarm.isNotification) {
@@ -152,9 +153,7 @@ class NotificationAlertFragment : DialogFragment() {
                     .setRequiresCharging(false)
                     .setRequiredNetworkType(NetworkType.CONNECTED)
                     .build()
-
                 Toast.makeText(context, "Daily", Toast.LENGTH_SHORT).show()
-
                 val myWorkRequest =
                     PeriodicWorkRequestBuilder<doWorker>(1, TimeUnit.DAYS).setConstraints(
                         myConstraints
@@ -165,9 +164,9 @@ class NotificationAlertFragment : DialogFragment() {
                         ExistingPeriodicWorkPolicy.REPLACE,
                         myWorkRequest
                     )
-
                 dismiss()
             } else {
+
                 Toast.makeText(
                     context,
                     "Please specify the end time of your alert",
@@ -176,9 +175,12 @@ class NotificationAlertFragment : DialogFragment() {
             }
 
             //////////////////Cancel_Button///////////////////
-            binding.btnCancel.setOnClickListener {
-                dismiss()
-            }
+
+        }
+
+        binding.btnCancel.setOnClickListener {
+            Log.i("TAG", "getLocalWeathers: errror")
+            dismiss()
         }
         return root
     }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +26,9 @@ import com.example.weather.ui.favorite.view.FavoriteViewModel
 import com.example.weather.ui.favorite.OnClick
 import com.example.weather.ui.favorite.ui.FavoriteFragmentDirections
 import com.example.weather.ui.favorite.view.FavoriteViewModelFactory
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.security.auth.login.LoginException
 
 class FavoriteFragment : Fragment(), OnClick {
     lateinit var myViewModel: FavoriteViewModel
@@ -66,35 +69,38 @@ class FavoriteFragment : Fragment(), OnClick {
         favoriteAdapter = FavoriteAdapter(listOf(), this)
 
         lifecycleScope.launch {
-            myViewModel.favoriteWeather.collect {
-                when (it) {
+            myViewModel.favoriteWeather.collectLatest { data ->
+                when (data) {
                     is LocalDataState.Loading -> {
                     }
+
                     is LocalDataState.Fail -> {
-                        Toast.makeText(requireContext(),"Failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
                     }
                     is LocalDataState.Success -> {
+                        Log.i("TAG", "getLocalWeathers: errror222")
 
-                        if (it.data.isEmpty() == true) {
-                            binding.recFav.visibility = View.GONE
 
-                        } else {
-                            binding.recFav.visibility = View.VISIBLE
-                            favoriteAdapter.setList(it.data)
-                            favoriteAdapter.notifyDataSetChanged()
-                            binding.recFav.adapter = favoriteAdapter
-                            binding.recFav.layoutManager = LinearLayoutManager(context)
+
+
+
+
+                      //  binding.recFav.visibility = View.VISIBLE
+                        favoriteAdapter.setList(data.data)
+                        // favoriteAdapter.notifyDataSetChanged()
+                        binding.recFav.adapter = favoriteAdapter
+                        binding.recFav.layoutManager = LinearLayoutManager(context)
 /////////////////////////////////////Map/////////////////////////////////////////////////////////////////////////////
-                            binding.addFab.setOnClickListener {
-                                val action =
-                                    FavoriteFragmentDirections.actionNavigationFavoriteToMapsFragment()
-                                Navigation.findNavController(it).navigate(action)
-                            }
+                        binding.addFab.setOnClickListener {
+                            val action =
+                                FavoriteFragmentDirections.actionNavigationFavoriteToMapsFragment("default")
+                            Navigation.findNavController(it).navigate(action)
                         }
                     }
                 }
             }
         }
+
 
         return root
     }

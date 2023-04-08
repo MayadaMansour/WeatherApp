@@ -20,7 +20,8 @@ import com.example.weather.ui.alert.recevier.AlertRecevier
 
 
 class Notification(context: Context?) : ContextWrapper(context) {
-    val MY_CHANNEL="my channal"
+    private val MY_CHANNEL="my_channel"
+
 
     fun getNotificationBuilder(
         title: String?,
@@ -42,6 +43,7 @@ class Notification(context: Context?) : ContextWrapper(context) {
             .setColor(ContextCompat.getColor(applicationContext, R.color.white))
             .setContentIntent(contentIntent)
             .setAutoCancel(true)
+
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
@@ -55,7 +57,7 @@ class Notification(context: Context?) : ContextWrapper(context) {
         }
         val notificationManager: NotificationManager =
             context.getSystemService(NotificationManager::class.java)
-        notificationManager.createNotificationChannel(channel)
+        notificationManager!!.createNotificationChannel(channel)
         return notificationManager
     }
 
@@ -71,7 +73,7 @@ class Notification(context: Context?) : ContextWrapper(context) {
             notificationScreenIntent, PendingIntent.FLAG_MUTABLE
         )
 
-        val snoozeIntent = Intent(this, ActionRecevier::class.java).apply {
+        val snoozeIntent = Intent(this,ActionRecevier::class.java).apply {
             action = Constants.ACTION_SNOOZE
             putExtra(Constants.EXTRA_NOTIFICATION_ID, notificationId)
         }
@@ -92,6 +94,8 @@ class Notification(context: Context?) : ContextWrapper(context) {
                 .setFullScreenIntent(notificationScreenPendingIntent,true)
                 .setOngoing(true)
                 .build()
+
+
         return notification
     }
 

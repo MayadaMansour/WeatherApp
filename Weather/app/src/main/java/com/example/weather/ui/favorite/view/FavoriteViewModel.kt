@@ -1,5 +1,6 @@
 package com.example.weather.ui.favorite.view
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mvvm.Model.RepoInterface
@@ -32,9 +33,11 @@ class FavoriteViewModel(private val _irepo: RepoInterface) : ViewModel() {
 
 
 
-    fun getLocalWeathers(){
+    private fun getLocalWeathers(){
         viewModelScope.launch {
-            _irepo.getStoreWeathers().catch {e->_favoriteWeather.value= LocalDataState.Fail(e)  }.collectLatest {
+            _irepo.getStoreWeathers().catch {e->_favoriteWeather.value= LocalDataState.Fail(e)
+            }.collectLatest {
+                Log.i("TAG", "getLocalWeathers: errror")
                 _favoriteWeather.value=LocalDataState.Success(it)
 
             }
