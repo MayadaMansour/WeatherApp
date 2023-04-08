@@ -12,7 +12,7 @@ import retrofit2.Response
 interface RepoInterface {
     suspend fun insertWeathers(city: City)
     suspend fun deleteWeathers(city: City)
-    suspend fun getStoreWeathers():List<City>
+     fun getStoreWeathers(): Flow<List<City>>
     suspend fun getWeatherOverNetwork(lat:Double,lon:Double,exclude:String,appid:String,lang: String,
                                       units: String): Flow<Response<MyResponce>>
 

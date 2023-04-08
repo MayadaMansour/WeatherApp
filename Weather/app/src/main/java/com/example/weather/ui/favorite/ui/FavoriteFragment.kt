@@ -10,17 +10,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm.Model.Reposatory
 import com.example.weather.data.weather.LocalSource.ConcreteLocalSource
 import com.example.weather.data.weather.netwok.Client
+import com.example.weather.data.weather.netwok.LocalDataState
 import com.example.weather.databinding.FragmentFavoriteBinding
 import com.example.weather.models.City
 import com.example.weather.ui.favorite.view.FavoriteViewModel
 import com.example.weather.ui.favorite.OnClick
 import com.example.weather.ui.favorite.ui.FavoriteFragmentDirections
 import com.example.weather.ui.favorite.view.FavoriteViewModelFactory
+import kotlinx.coroutines.launch
 
 class FavoriteFragment : Fragment(), OnClick {
     lateinit var myViewModel: FavoriteViewModel
@@ -45,9 +50,11 @@ class FavoriteFragment : Fragment(), OnClick {
         myViewModelFactory = FavoriteViewModelFactory(
             Reposatory.getInstance(
                 Client.getInstance(),
-                ConcreteLocalSource(requireContext()), PreferenceManager.getDefaultSharedPreferences(requireContext()
+                ConcreteLocalSource(requireContext()),
+                PreferenceManager.getDefaultSharedPreferences(
+                    requireContext()
+                )
             )
-        )
         )
 
         myViewModel =
@@ -58,27 +65,44 @@ class FavoriteFragment : Fragment(), OnClick {
 
         favoriteAdapter = FavoriteAdapter(listOf(), this)
 
+        lifecycleScope.launch {
+            myViewModel.favoriteWeather.collect {
+                when (it) {
+                    is LocalDataState.Loading -> {
+                    }
+                    is LocalDataState.Fail -> {
+                        Toast.makeText(requireContext(),"Failed", Toast.LENGTH_SHORT).show()
+                    }
+                    is LocalDataState.Success -> {
 
-        //Observe Home Data
-        myViewModel.favoriteWeather.observe(viewLifecycleOwner) {
-            favoriteAdapter.setList(it)
+                        if (it.data.isEmpty() == true) {
+                            binding.recFav.visibility = View.GONE
 
-
-            binding.recFav.adapter = favoriteAdapter
-            binding.recFav.layoutManager = LinearLayoutManager(context)
-/////////////////////////////////////Map/////////////////////////////////////////////////////////
-            binding.addFab.setOnClickListener {
-                val action =
-                    FavoriteFragmentDirections.actionNavigationFavoriteToMapsFragment()
-                Navigation.findNavController(it).navigate(action)
+                        } else {
+                            binding.recFav.visibility = View.VISIBLE
+                            favoriteAdapter.setList(it.data)
+                            favoriteAdapter.notifyDataSetChanged()
+                            binding.recFav.adapter = favoriteAdapter
+                            binding.recFav.layoutManager = LinearLayoutManager(context)
+/////////////////////////////////////Map/////////////////////////////////////////////////////////////////////////////
+                            binding.addFab.setOnClickListener {
+                                val action =
+                                    FavoriteFragmentDirections.actionNavigationFavoriteToMapsFragment()
+                                Navigation.findNavController(it).navigate(action)
+                            }
+                        }
+                    }
+                }
             }
         }
+
         return root
     }
-///////////////////////////////////Methods Data////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////Methods Data////////////////////////////////////////////////////////////
     override fun sendData(lat: Double, long: Double) {
-         val action= FavoriteFragmentDirections.fromFavToDetails(lat.toFloat(), long.toFloat())
-         Navigation.findNavController(requireView()).navigate(action)
+        val action = FavoriteFragmentDirections.fromFavToDetails(lat.toFloat(), long.toFloat())
+        Navigation.findNavController(requireView()).navigate(action)
     }
 
     override fun deleteWeathers(city: City) {

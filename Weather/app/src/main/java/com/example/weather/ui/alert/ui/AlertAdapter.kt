@@ -1,16 +1,13 @@
 package com.example.weather.ui.alert.ui
 
 import android.app.AlertDialog
-import android.app.Notification
 import android.content.Context
 import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weather.R
 import com.example.weather.databinding.ItemAlertBinding
 import com.example.weather.models.Alert
-import com.example.weather.ui.alert.OnClickAlert
 import com.example.weather.ui.main.Utils
 
 

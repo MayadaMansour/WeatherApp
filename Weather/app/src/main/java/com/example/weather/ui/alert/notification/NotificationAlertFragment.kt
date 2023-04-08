@@ -3,14 +3,11 @@ package com.example.weather.ui.alert.notification
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.*
 import android.widget.TextView
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -28,24 +25,17 @@ import com.example.weather.ui.alert.recevier.doWorker
 import com.example.weather.ui.alert.view.AlertViewModel
 import com.example.weather.ui.alert.view.AlertViewModelFactory
 import com.example.weather.ui.main.Constants
-import com.example.weather.ui.main.Constants.alert
-import com.example.weather.ui.main.Constants.lat
-import com.example.weather.ui.main.Constants.lon
 import com.example.weather.ui.main.Utils
-import com.example.weather.ui.main.Utils.convertToDate
-import com.example.weather.ui.main.Utils.convertToTime
 import com.example.weather.ui.main.Utils.getCurrentDate
 import com.example.weather.ui.main.Utils.getCurrentTime
 import com.example.weather.ui.main.Utils.getCurrentTime2
-import com.example.weather.ui.main.Utils.getseconds
-import com.google.android.gms.maps.MapFragment
 import com.google.gson.Gson
 import java.util.concurrent.TimeUnit
 
 
 class NotificationAlertFragment : DialogFragment() {
 
-   private var _binding: FragmentNotificationAlertBinding? = null
+    private var _binding: FragmentNotificationAlertBinding? = null
     private val binding get() = _binding!!
     lateinit var start_cal: Calendar
     lateinit var end_cal: Calendar
@@ -81,7 +71,7 @@ class NotificationAlertFragment : DialogFragment() {
         getDialog()?.requestWindowFeature(STYLE_NO_TITLE)
         setCancelable(false)
         sharedPreferences = activity?.getSharedPreferences("My Shared", Context.MODE_PRIVATE)!!
-        alert = Alert(getCurrentTime().second, getCurrentTime2().second,0.0 ,0.0, "City")
+        alert = Alert(getCurrentTime().second, getCurrentTime2().second, 0.0, 0.0, "City")
         val repo = Reposatory.getInstance(
             Client.getInstance(), ConcreteLocalSource(requireActivity()),
             PreferenceManager.getDefaultSharedPreferences(context)
@@ -100,26 +90,20 @@ class NotificationAlertFragment : DialogFragment() {
         alert.endDay = Calendar.getInstance().timeInMillis
         binding.toDate.text = getCurrentDate()
         binding.fromTime.text = getCurrentTime().first
-        binding.toTime.text =getCurrentTime2().first
-        if(Utils.isOnline(requireContext()))
-        {
-            binding.btnCountry.isEnabled=true
-            binding.btnKo.isEnabled=true
+        binding.toTime.text = getCurrentTime2().first
+        if (Utils.isOnline(requireContext())) {
+            binding.btnCountry.isEnabled = true
+            binding.btnKo.isEnabled = true
+        } else {
+            binding.btnCountry.isEnabled = false
+            binding.btnKo.isEnabled = false
+            Toast.makeText(requireContext(), "No Connection ", Toast.LENGTH_SHORT).show()
         }
-        else
-
-        {
-            binding.btnCountry.isEnabled=false
-            binding.btnKo.isEnabled=false
-            Toast.makeText(requireContext(),"No Connection ",Toast.LENGTH_SHORT).show()
+        if (alarm?.isALarm == true && alarm.isNotification == false) {
+            binding.radioButtonAlarm.isChecked = true
         }
-        if(alarm?.isALarm == true&&alarm.isNotification==false)
-        {
-            binding.radioButtonAlarm.isChecked=true
-        }
-        if(alarm?.isALarm == false && alarm.isNotification)
-        {
-            binding.radioButtonNotify.isChecked=true
+        if (alarm?.isALarm == false && alarm.isNotification) {
+            binding.radioButtonNotify.isChecked = true
         }
 
         binding.fromTime.setOnClickListener {
@@ -248,7 +232,6 @@ class NotificationAlertFragment : DialogFragment() {
         }
         return alertSettings
     }
-
 
 
 }

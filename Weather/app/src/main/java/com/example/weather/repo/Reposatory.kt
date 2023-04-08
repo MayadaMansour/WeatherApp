@@ -53,7 +53,7 @@ class Reposatory private constructor(
         localSource.deleteWeathers(city)
     }
 
-    override suspend fun getStoreWeathers(): List<City> {
+    override  fun getStoreWeathers():  Flow<List<City>> {
         return localSource.getStoreWeathers()
 
     }

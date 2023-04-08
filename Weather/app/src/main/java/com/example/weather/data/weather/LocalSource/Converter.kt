@@ -33,13 +33,13 @@ class Converter{
     fun fromGsonToCityList(stringCity: String) =
         Gson().fromJson(stringCity, Array<City>::class.java).toList()
 
-  /*  @TypeConverter
-    fun fromMinutelyToGson(minutely: List<Minutely>): String = Gson().toJson(minutely)
+    @TypeConverter
+    fun fromAlertSettingsToGson(minutely: List<AlertSettings>): String = Gson().toJson(minutely)
 
 
     @TypeConverter
-    fun fromGsonToMinutely(string: String): List<Minutely> =
-        Gson().fromJson(string, Array<Minutely>::class.java).toList()*/
+    fun fromGsonToAlertSettings(string: String): List<AlertSettings> =
+        Gson().fromJson(string, Array<AlertSettings>::class.java).toList()
 
 
     @TypeConverter

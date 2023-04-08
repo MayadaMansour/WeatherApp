@@ -1,23 +1,17 @@
 package com.example.weather.ui.alert.view
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mvvm.Model.RepoInterface
-import com.example.weather.data.weather.LocalSource.RoomState
-import com.example.weather.data.weather.netwok.ApiState
 import com.example.weather.data.weather.netwok.LocalDataStateAlerts
 import com.example.weather.models.Alert
 import com.example.weather.models.AlertSettings
-import com.example.weather.models.City
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class AlertViewModel(private val repo: RepoInterface) : ViewModel() {

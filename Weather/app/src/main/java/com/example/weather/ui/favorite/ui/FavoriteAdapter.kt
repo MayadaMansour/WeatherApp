@@ -45,42 +45,38 @@ class FavoriteAdapter(
             onClick.deleteWeathers(currentObj)
             notifyDataSetChanged()
         }
-        var lat =currentObj.citylat
-        var lon =currentObj.citylon
+        var lat = currentObj.citylat
+        var lon = currentObj.citylon
         holder.binding.cardFv.setOnClickListener {
-            onClick.sendData(lat,lon)
+            onClick.sendData(lat, lon)
         }
         Glide.with(context)
             .load("https://openweathermap.org/img/wn/${currentObj.city.get(0)}@2x.png")
             .into(holder.binding.iconFav)
 
-        val sharedPreference =  context.getSharedPreferences("getSharedPreferences", Context.MODE_PRIVATE)
-        val language =  sharedPreference.getString(Constants.lang,"en") !!
+        val sharedPreference =
+            context.getSharedPreferences("getSharedPreferences", Context.MODE_PRIVATE)
+        val language = sharedPreference.getString(Constants.lang, "en")!!
 
-      //  holder.binding.daesFav.text = currentObj.city
-       // holder. binding.countryFav.text = Utils.convertToDay(currentObj.city, language)
+        //  holder.binding.daesFav.text = currentObj.city
+        // holder. binding.countryFav.text = Utils.convertToDay(currentObj.city, language)
 
-        val date = currentObj.city.let  {
-            convertToDate(it.get(0).toLong(),language) }
-
-        if(language=="en"){
-            holder.binding.countryFav.text ="${currentObj.city}"
-            holder.binding.daesFav.text =" ${date}"
-        }else{
-            holder.binding.countryFav.text ="${currentObj.city} "
-            holder.binding.daesFav.text =" ${date}"
+        val date = currentObj.city.let {
+            convertToDate(it.get(0).toLong(), language)
         }
 
-
-
-
-
-
+        if (language == "en") {
+            holder.binding.countryFav.text = "${currentObj.city}"
+            holder.binding.daesFav.text = " ${date}"
+        } else {
+            holder.binding.countryFav.text = "${currentObj.city} "
+            holder.binding.daesFav.text = " ${date}"
+        }
 
     }
 
-    fun setList(favorite:List<City>){
-        list=favorite
+    fun setList(favorite: List<City>) {
+        list = favorite
         notifyDataSetChanged()
     }
 

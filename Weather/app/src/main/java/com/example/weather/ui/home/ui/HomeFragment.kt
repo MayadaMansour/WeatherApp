@@ -119,7 +119,7 @@ class HomeFragment : Fragment() {
                     }
                     is ApiState.Success -> {
                         _binding?.country?.text = it.data.body()?.timezone
-                        _binding?.tempDay?.text =
+                        _binding?.tempMin?.text =
                             Math.ceil(it.data.body()?.current!!.temp).toInt()
                                 .toString() + Constants.CELSIUS
                         val dayhome = getCurrentDay(it.data.body()?.current!!.dt?.toInt()!!)
@@ -171,7 +171,7 @@ class HomeFragment : Fragment() {
                             )
                         if (lang == Constants.Enum_language.en.toString()) {
                             //en
-                            _binding!!.tempDay.text =
+                            _binding!!.tempMin.text =
                                 "${it.data.body()?.current!!.temp} ${
                                     Utils.getCurrentTemperature(
                                         requireContext()
@@ -188,7 +188,7 @@ class HomeFragment : Fragment() {
                                     }${Utils.getCurrentTemperature(requireContext())}"
                             else
                                 _binding!!.desc.text = ""
-                            _binding!!.tempDay.text =
+                            _binding!!.tempMin.text =
                                 "${it.data.body()?.current!!.temp}${
                                     Utils.getCurrentTemperature(
                                         requireContext()
@@ -196,7 +196,7 @@ class HomeFragment : Fragment() {
                                 }"
                         } else {
                             //ar
-                            _binding!!.tempDay.text =
+                            _binding!!.tempMin.text =
                                 "${Utils.convertStringToArabic(it.data.body()?.current!!.temp.toString())}${
                                     Utils.getCurrentTemperature(requireContext())
                                 }"
@@ -211,7 +211,7 @@ class HomeFragment : Fragment() {
                                     }"
                             else
                                 _binding!!.desc.text = ""
-                            _binding!!.tempDay.text =
+                            _binding!!.tempMin.text =
                                 "${Utils.convertStringToArabic(it.data.body()?.current!!.temp.toString())}${
                                     Utils.getCurrentTemperature(requireContext())
                                 }"

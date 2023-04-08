@@ -30,7 +30,7 @@ class ConcreteLocalSource(context: Context) : LocalSource {
         dao.delete(city)
     }
 
-    override suspend fun getStoreWeathers(): List<City> {
+    override  fun getStoreWeathers(): Flow<List<City>> {
         return dao.getAll()
     }
 

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface LocalSource {
     suspend fun insertWeathers(city: City)
     suspend fun deleteWeathers(city: City)
-    suspend fun getStoreWeathers():List<City>
+   fun getStoreWeathers(): Flow<List<City>>
 
 
     fun getAlerts(): Flow<List<Alert>>

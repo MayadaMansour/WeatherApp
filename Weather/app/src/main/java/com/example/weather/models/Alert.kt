@@ -9,7 +9,6 @@ import java.io.Serializable
 @Entity(tableName = "Alert")
 @TypeConverters(Converter::class)
 data class Alert(
-   // var Time: Long,
     var startDay: Long,
     var endDay: Long,
     var lat: Double,
