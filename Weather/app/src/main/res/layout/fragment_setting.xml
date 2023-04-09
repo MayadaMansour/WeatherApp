@@ -1,218 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/weather"
-    android:translationZ="30dp"
-    app:constraint_referenced_tags="30dp"
-    tools:context=".ui.setting.SettingFragment">
+    android:id="@+id/ConstraintLayout_background"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <RelativeLayout
-        android:id="@+id/temp_card"
-        android:layout_width="335dp"
-        android:layout_height="167dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="45dp"
-        android:background="@drawable/sheet_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.98"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.799">
+    <LinearLayout
+        android:layout_width="match_parent"
 
-        <RadioGroup
-            android:id="@+id/temp_radio_group"
-            android:layout_width="322dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="bottom"
+        android:layoutDirection="locale"
+        android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/kelvin_radio_button"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="685dp"
+            android:paddingVertical="20dp"
+            >
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_lang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:text="@string/kelvin"
-                android:textColor="#FFFFFF" />
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="98dp"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <RadioButton
-                android:id="@+id/celsius_radio_button"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginEnd="5dp"
-                android:text="@string/celsius"
-                android:textColor="#FFFFFF" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="390dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/light_gray"
+                    android:padding="20dp">
 
-            <RadioButton
-                android:id="@+id/fehrenheit_radio_button"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginEnd="5dp"
-                android:text="@string/fehrenheit"
-                android:textColor="#FFFFFF" />
-        </RadioGroup>
-    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/language_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/language"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
 
-    <TextView
-        android:id="@+id/loc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="260dp"
-        android:text="@string/location"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                        android:textColor="@color/dark_yellow"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
-        android:id="@+id/loc_card"
-        android:layout_width="286dp"
-        android:layout_height="83dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="45dp"
-        android:background="@drawable/sheet_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.403"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.222">
+                    <RadioGroup
+                        android:id="@+id/language_radio_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/language_text"
+                        app:layout_constraintTop_toBottomOf="@id/language_text">
 
-        <RadioGroup
-            android:id="@+id/language_radio_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="71dp"
-            android:layout_marginBottom="18dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent">
+                        <RadioButton
+                            android:id="@+id/english_radio_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="15dp"
+                            android:checked="false"
+                            android:textColor="@color/white"
+                            android:text="@string/english" />
 
-            <RadioButton
-                android:id="@+id/english_radio_button"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginEnd="15dp"
-                android:checked="false"
-                android:text="@string/english"
-                android:textColor="#FFFFFF" />
+                        <RadioButton
+                            android:id="@+id/arabic_radio_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:textColor="@color/white"
+                            android:text="@string/arabic" />
+                    </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/arabic_radio_button"
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_loc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="@string/arabic"
-                android:textColor="#FFFFFF" />
-        </RadioGroup>
-    </RelativeLayout>
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="30dp"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_lang">
 
-    <RelativeLayout
-        android:id="@+id/lang_card"
-        android:layout_width="305dp"
-        android:layout_height="84dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="45dp"
-        android:background="@drawable/sheet_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.457">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="383dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/light_gray"
+                    android:padding="20dp"
 
-        <RadioGroup
-            android:id="@+id/location_radio_group"
-            android:layout_width="221dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="44dp"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent">
+                    >
 
-            <RadioButton
-                android:id="@+id/gps_radio_button"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginEnd="15dp"
-                android:checked="false"
-                android:text="@string/gps"
-                android:textColor="#FFFFFF" />
+                    <TextView
+                        android:id="@+id/location_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/location"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_yellow"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <RadioButton
-                android:id="@+id/map_radio_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="@string/map"
-                android:textColor="#FFFFFF" />
-        </RadioGroup>
-    </RelativeLayout>
+                    <RadioGroup
+                        android:id="@+id/location_radio_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/location_text"
+                        app:layout_constraintTop_toBottomOf="@id/location_text">
+
+                        <RadioButton
+                            android:id="@+id/gps_radio_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="15dp"
+                            android:text="@string/gps"
+                            android:textColor="@color/white"/>
+
+                        <RadioButton
+                            android:id="@+id/map_radio_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:text="@string/map"
+                            android:textColor="@color/white"/>
+                    </RadioGroup>
 
 
-    <TextView
-        android:id="@+id/lang"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="104dp"
-        android:text="@string/language"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/temp_min"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="416dp"
-        android:text="@string/temperature"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_temp"
+                android:layout_width="357dp"
+                android:layout_height="236dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="30dp"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_loc">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigation_bar"
-        android:layout_width="424dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="51dp"
-        android:background="#15141C"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.538"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="368dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/light_gray"
+                    android:padding="20dp">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="410dp"
-        android:layout_height="53dp"
-        android:background="@color/dark_blue"
-        app:itemIconTint="@drawable/bottom_nav"
-        app:itemTextColor="@drawable/bottom_nav"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        tools:layout_conversion_absoluteHeight="0dp"
-        tools:layout_conversion_absoluteWidth="0dp">
+                    <TextView
+                        android:id="@+id/current_temp_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/temperature"
+                        android:textColor="@color/dark_yellow"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+                    <RadioGroup
+                        android:id="@+id/temp_radio_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/current_temp_text">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                        <RadioButton
+                            android:id="@+id/kelvin_radio_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:text="@string/kelvin"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:id="@+id/celsius_radio_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:text="@string/celsius"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:id="@+id/fehrenheit_radio_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:text="@string/fehrenheit"
+                            android:textColor="@color/white" />
+                    </RadioGroup>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -5,19 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/weather"
     tools:context=".ui.alert.notification.NotificationScreenActivity">
 
     <Button
         android:id="@+id/btn_dismiss"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="116dp"
-        android:backgroundTint="#AB454151"
+        android:layout_width="129dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="132dp"
+        
         android:elevation="20dp"
         android:padding="10dp"
         android:paddingRight="10dp"
         android:text="Dismiss"
-        android:textColor="@color/white"
+        android:textColor="@color/dark_yellow"
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

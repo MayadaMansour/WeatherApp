@@ -19,7 +19,6 @@ import com.example.mvvm.Model.Reposatory
 import com.example.weather.data.weather.LocalSource.ConcreteLocalSource
 import com.example.weather.data.weather.netwok.ApiState
 import com.example.weather.data.weather.netwok.Client
-import com.example.weather.data.weather.netwok.LocalDataStateAlerts
 import com.example.weather.databinding.FragmentDetailesBinding
 import com.example.weather.ui.main.Constants
 import com.example.weather.ui.detaile.view.DetailesViewModel
@@ -29,7 +28,6 @@ import kotlinx.coroutines.flow.collectLatest
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 

@@ -15,7 +15,6 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm.Model.Reposatory
 import com.example.weather.data.weather.LocalSource.ConcreteLocalSource
 import com.example.weather.data.weather.netwok.Client
@@ -24,11 +23,9 @@ import com.example.weather.databinding.FragmentFavoriteBinding
 import com.example.weather.models.City
 import com.example.weather.ui.favorite.view.FavoriteViewModel
 import com.example.weather.ui.favorite.OnClick
-import com.example.weather.ui.favorite.ui.FavoriteFragmentDirections
 import com.example.weather.ui.favorite.view.FavoriteViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.security.auth.login.LoginException
 
 class FavoriteFragment : Fragment(), OnClick {
     lateinit var myViewModel: FavoriteViewModel
@@ -79,12 +76,6 @@ class FavoriteFragment : Fragment(), OnClick {
                     }
                     is LocalDataState.Success -> {
                         Log.i("TAG", "getLocalWeathers: errror222")
-
-
-
-
-
-
                       //  binding.recFav.visibility = View.VISIBLE
                         favoriteAdapter.setList(data.data)
                         // favoriteAdapter.notifyDataSetChanged()

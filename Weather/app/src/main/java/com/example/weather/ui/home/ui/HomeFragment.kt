@@ -18,7 +18,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.compose.LocalActivityResultRegistryOwner.current
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -34,17 +33,12 @@ import com.example.weather.data.weather.netwok.Client
 import com.example.weather.databinding.FragmentHomeBinding
 import com.example.weather.ui.detaile.ui.DaitelsHourlyAdapter
 import com.example.weather.ui.detaile.ui.DetailsDailyAdapter
-import com.example.weather.ui.main.Constants.MBAR
 import com.example.weather.ui.home.view.HomeViewModel
 import com.example.weather.ui.home.view.ViewModelFactory
 import com.example.weather.ui.main.Constants
 import com.example.weather.ui.main.Constants.lang
 import com.example.weather.ui.main.Utils
-import com.example.weather.ui.main.Utils.convertStringToArabic
-import com.example.weather.ui.main.Utils.convertToTime
 import com.example.weather.ui.main.Utils.getAddress
-import com.example.weather.ui.main.Utils.getCurrentSpeed
-import com.example.weather.ui.main.Utils.getCurrentTemperature
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.CancellationTokenSource
@@ -118,7 +112,8 @@ class HomeFragment : Fragment() {
                         ).show()
                     }
                     is ApiState.Success -> {
-                        _binding?.country?.text = it.data.body()?.timezone
+                        _binding?.country?.text =
+                            lang.let { it1 -> getAddress(it.data.body()!!.lat,it.data.body()!!.lon, it1,requireContext()) }
                         _binding?.tempMin?.text =
                             Math.ceil(it.data.body()?.current!!.temp).toInt()
                                 .toString() + Constants.CELSIUS
@@ -179,13 +174,8 @@ class HomeFragment : Fragment() {
                                 }"
                             if (it.data.body()!!.daily!![0].temp.min != it.data.body()!!.daily!![0].temp.max)
                                 _binding!!.desc.text =
-                                    "${it.data.body()!!.daily!![0].temp.min}${
-                                        Utils.getCurrentTemperature(
-                                            requireContext()
-                                        )
-                                    }/${
-                                        it.data.body()!!.daily!!.get(0).temp.max
-                                    }${Utils.getCurrentTemperature(requireContext())}"
+                                    it.data.body()?.current!!.weather.get(0).description
+
                             else
                                 _binding!!.desc.text = ""
                             _binding!!.tempMin.text =
@@ -202,13 +192,8 @@ class HomeFragment : Fragment() {
                                 }"
                             if (it.data.body()!!.daily!![0].temp.min != it.data.body()!!.daily!![0].temp.max)
                                 _binding!!.desc.text =
-                                    "${Utils.convertStringToArabic(it.data.body()!!.daily!![0].temp.min.toString())}${
-                                        Utils.getCurrentTemperature(requireContext())
-                                    }/${Utils.convertStringToArabic(it.data.body()!!.daily!!.get(0).temp.max.toString())}${
-                                        Utils.getCurrentTemperature(
-                                            requireContext()
-                                        )
-                                    }"
+                                    Utils.convertStringToArabic(it.data.body()?.current!!.weather.get(0).description)
+
                             else
                                 _binding!!.desc.text = ""
                             _binding!!.tempMin.text =

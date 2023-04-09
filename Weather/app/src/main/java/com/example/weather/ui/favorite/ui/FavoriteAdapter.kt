@@ -50,9 +50,9 @@ class FavoriteAdapter(
         holder.binding.cardFv.setOnClickListener {
             onClick.sendData(lat, lon)
         }
-        Glide.with(context)
+       /* Glide.with(context)
             .load("https://openweathermap.org/img/wn/${currentObj.city.get(0)}@2x.png")
-            .into(holder.binding.iconFav)
+            .into(holder.binding.iconFav) */
 
         val sharedPreference =
             context.getSharedPreferences("getSharedPreferences", Context.MODE_PRIVATE)
@@ -72,7 +72,6 @@ class FavoriteAdapter(
             holder.binding.countryFav.text = "${currentObj.city} "
             holder.binding.daesFav.text = " ${date}"
         }
-
     }
 
     fun setList(favorite: List<City>) {

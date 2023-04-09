@@ -23,6 +23,7 @@ import com.example.weather.databinding.FragmentNotificationAlertBinding
 import com.example.weather.models.Alert
 import com.example.weather.models.AlertSettings
 import com.example.weather.ui.alert.recevier.doWorker
+import com.example.weather.ui.alert.ui.AlertFragmentDirections
 import com.example.weather.ui.alert.view.AlertViewModel
 import com.example.weather.ui.alert.view.AlertViewModelFactory
 import com.example.weather.ui.main.Constants
@@ -117,8 +118,9 @@ class NotificationAlertFragment : DialogFragment() {
             Utils.getAddressEnglish(requireContext(), alarm?.lat, alarm?.lon)
         ////////////////Country_Button//////////
         binding.btnCountry.setOnClickListener {
-            val action =
-                NotificationAlertFragmentDirections.actionNotificationAlertFragmentToMapsFragment()
+
+            val action=
+                AlertFragmentDirections.actionNavigationAlertToMapsFragment("alarm")
             NavHostFragment.findNavController(this).navigate(action)
         }
         ////////////////Ok_Button///////////////

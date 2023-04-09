@@ -12,29 +12,29 @@
 
     <RelativeLayout
         android:id="@+id/loc_card"
-        android:layout_width="318dp"
-        android:layout_height="179dp"
+        android:layout_width="314dp"
+        android:layout_height="185dp"
         android:layout_marginStart="45dp"
         android:layout_marginEnd="45dp"
         android:background="@drawable/sheet_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057">
+        app:layout_constraintVertical_bias="0.054">
 
         <TextView
             android:id="@+id/country"
-            android:layout_width="wrap_content"
+            android:layout_width="126dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="131dp"
-            android:layout_marginBottom="146dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginBottom="142dp"
             android:text="Country"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             tools:layout_editor_absoluteY="49dp" />
 
@@ -44,54 +44,58 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="158dp"
-            android:layout_marginBottom="132dp"
+            android:layout_marginEnd="123dp"
+            android:layout_marginBottom="112dp"
             android:text="Day"
             android:textColor="#FFFFFF"
+            android:textSize="20sp"
             tools:layout_editor_absoluteY="83dp" />
 
         <TextView
-            android:id="@+id/temp_min"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/desc"
+            android:layout_width="95dp"
+            android:layout_height="27dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="140dp"
-            android:layout_marginBottom="101dp"
+            android:layout_marginEnd="104dp"
+            android:layout_marginBottom="62dp"
+            android:text="Description"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteY="146dp" />
+
+        <TextView
+            android:id="@+id/temp_min"
+            android:layout_width="91dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="101dp"
+            android:layout_marginBottom="91dp"
             android:text="16°C"
             android:textColor="@color/dark_yellow"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:layout_editor_absoluteY="108dp" />
 
-        <TextView
-            android:id="@+id/desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="136dp"
-            android:layout_marginBottom="90dp"
-            android:text="Description"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            tools:layout_editor_absoluteY="146dp" />
-
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="203dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="120dp"
+        android:layout_width="267dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="240dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.564"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/night" />
 
     <ScrollView
-        android:layout_width="410dp"
-        android:layout_height="441dp"
+        android:id="@+id/scrollView2"
+        android:layout_width="409dp"
+        android:layout_height="504dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,10 +107,11 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_hours"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_width="406dp"
+                android:layout_height="155dp"
+                android:layout_marginBottom="7dp"
                 android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/rec_days"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -115,9 +120,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_days"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_width="413dp"
+                android:layout_height="163dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.833"
                 app:layout_constraintStart_toStartOf="parent"
@@ -126,8 +131,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/temp_card"
                 android:layout_width="100dp"
-                android:layout_height="85dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="90dp"
                 android:layout_marginBottom="164dp"
                 app:cardBackgroundColor="#15141C"
                 app:cardCornerRadius="25dp"
@@ -135,7 +139,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.051"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rec_days">
+                app:layout_constraintTop_toBottomOf="@+id/rec_days"
+                app:layout_constraintVertical_bias="0.19">
 
                 <TextView
                     android:id="@+id/type"
@@ -170,15 +175,15 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/hum_card"
                 android:layout_width="100dp"
-                android:layout_height="85dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="90dp"
                 android:layout_marginBottom="164dp"
                 app:cardBackgroundColor="#15141C"
                 app:cardCornerRadius="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rec_days">
+                app:layout_constraintTop_toBottomOf="@+id/rec_days"
+                app:layout_constraintVertical_bias="0.19">
 
                 <TextView
                     android:id="@+id/type2"
@@ -214,8 +219,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/wind_card"
                 android:layout_width="100dp"
-                android:layout_height="85dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="90dp"
                 android:layout_marginBottom="164dp"
                 app:cardBackgroundColor="#15141C"
                 app:cardCornerRadius="25dp"
@@ -223,7 +227,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.948"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rec_days">
+                app:layout_constraintTop_toBottomOf="@+id/rec_days"
+                app:layout_constraintVertical_bias="0.19">
 
                 <TextView
                     android:id="@+id/type3"
@@ -259,14 +264,15 @@
                 android:id="@+id/pres_card"
                 android:layout_width="100dp"
                 android:layout_height="85dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="100dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="200dp"
                 app:cardBackgroundColor="#15141C"
                 app:cardCornerRadius="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/temp_card"
                 app:layout_constraintStart_toStartOf="@+id/temp_card"
-                app:layout_constraintTop_toBottomOf="@+id/temp_card">
+                app:layout_constraintTop_toBottomOf="@+id/temp_card"
+                >
 
                 <TextView
                     android:id="@+id/type4"
@@ -302,8 +308,8 @@
                 android:id="@+id/srise_card"
                 android:layout_width="100dp"
                 android:layout_height="85dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="100dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="200dp"
                 app:cardBackgroundColor="#15141C"
                 app:cardCornerRadius="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -346,8 +352,8 @@
                 android:id="@+id/sset_card"
                 android:layout_width="100dp"
                 android:layout_height="85dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="100dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="200dp"
                 app:cardBackgroundColor="#15141C"
                 app:cardCornerRadius="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"

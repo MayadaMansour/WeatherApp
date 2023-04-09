@@ -20,15 +20,15 @@
 
     <TextView
         android:id="@+id/country_alert"
-        android:layout_width="78dp"
+        android:layout_width="136dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="62dp"
+        android:layout_marginEnd="106dp"
+        android:layout_marginBottom="61dp"
         android:text="Country"
         android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
@@ -37,8 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="164dp"
-        android:layout_marginBottom="37dp"
+        android:layout_marginEnd="168dp"
+        android:layout_marginBottom="34dp"
         android:text="Start Timer"
         android:textColor="#FFFFFF"
         android:textSize="14sp" />
@@ -49,8 +49,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="168dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="174dp"
+        android:layout_marginBottom="11dp"
         android:text="End Timer"
         android:textColor="#FFFFFF"
         android:textSize="14sp" />

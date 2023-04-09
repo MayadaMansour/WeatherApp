@@ -8,27 +8,17 @@
     android:background="@drawable/sheet_bg">
 
 
-    <ImageView
-        android:id="@+id/icon_fav"
-        android:layout_width="59dp"
-        android:layout_height="58dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="208dp"
-        android:layout_marginBottom="23dp"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
-
     <TextView
         android:id="@+id/country_fav"
-        android:layout_width="78dp"
+        android:layout_width="213dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="275dp"
-        android:layout_marginBottom="39dp"
+        android:layout_marginEnd="89dp"
+        android:layout_marginBottom="56dp"
         android:text="Country"
         android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
@@ -37,11 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="115dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginEnd="214dp"
+        android:layout_marginBottom="25dp"
         android:text="Description"
         android:textColor="#FFFFFF"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/delete_icon"
@@ -49,7 +39,7 @@
         android:layout_height="46dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="46dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="63dp"
+        android:layout_marginBottom="29dp"
         app:srcCompat="@drawable/baseline_delete_24" />
 </RelativeLayout>
