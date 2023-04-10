@@ -11,7 +11,7 @@ import com.example.weather.models.Alert
 import com.example.weather.models.City
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.runBlockingTest
+
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
 import org.hamcrest.collection.IsEmptyCollection
@@ -23,6 +23,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+
+import kotlinx.coroutines.test.runBlockingTest
+
+
 
 
 
