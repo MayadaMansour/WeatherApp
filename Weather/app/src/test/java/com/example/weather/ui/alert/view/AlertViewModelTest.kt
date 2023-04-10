@@ -9,17 +9,19 @@ import com.example.weather.data.weather.netwok.Client
 import com.example.weather.data.weather.netwok.LocalDataState
 import com.example.weather.data.weather.netwok.LocalDataStateAlerts
 import com.example.weather.data.weather.netwok.RemoteSourceInterface
+import com.example.weather.getOrAwaitValue
 import com.example.weather.localSourceTest.FakeLocalDataSource
 import com.example.weather.localSourceTest.FakeRemoteDataSource
 import com.example.weather.localSourceTest.FakeReposatory
 import com.example.weather.models.Alert
 import com.example.weather.models.City
+import com.example.weather.models.CurrentWeather
+import com.example.weather.models.MyResponce
 import com.example.weather.ui.favorite.view.FavoriteViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
-import org.hamcrest.core.IsNull
 import org.junit.Assert.*
 
 import org.junit.After
@@ -40,99 +42,54 @@ class AlertViewModelTest {
     // Executes each task synchronously using Architecture Components.
     @ExperimentalCoroutinesApi
     @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
-
-    @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
-    lateinit var localDataSource: LocalSource
-    lateinit var remoteDataSource: RemoteSourceInterface
-    lateinit var welcomeList: MutableList<City>
-    lateinit var alertList: MutableList<Alert>
-    lateinit var current1: City
-    lateinit var sharedPreferences: SharedPreferences
+    lateinit var current1: Alert
+    lateinit var weatherResponse: MyResponce
+
 
     @Before
     fun setUp() {
-        var data1 = City(30.0, 25.0, "Alex")
+
+        var curr= CurrentWeather(1355645,25,2552,255.00,5221.0,21522,2552,55225.0,252254.0,
+            1420225,2654552,25225.0,2525,2145.00, listOf(),null,null)
+        weatherResponse = MyResponce(30.0,25.0,"152655",165552455,curr, listOf(curr),null,null)
+        current1 = Alert(12323, 13652, 30.25, 30.25, "Alex")
         var data2 = City(30.0, 25.0, "Alex")
         var data3 = City(30.0, 25.0, "Cairo")
         var data4 = City(30.0, 25.0, "Korea")
         val data = Alert(12323, 13652, 30.25, 30.25, "Alex")
         val data5 = Alert(12323, 13652, 30.25, 30.25, "Cairo")
         val data6 = Alert(12323, 13652, 30.25, 30.25, "Korea")
-        welcomeList = listOf(data1, data2, data3, data4) as MutableList<City>
-        alertList = listOf(data, data5, data6) as MutableList<Alert>
-
-        localDataSource = FakeLocalDataSource(
-            alertList,
-            welcomeList
-        )
-        remoteDataSource = FakeRemoteDataSource(repository)
-        repository = FakeReposatory(remoteDataSource as Client, localDataSource, sharedPreferences)
+        repository= FakeReposatory()
         alertViewModel = AlertViewModel(repository)
 
 
     }
+    @Test
+    fun insert_alert_Item_CheckNotEmpty () = runBlockingTest {
+        alertViewModel.insertAlertDB(current1)
+        var result = alertViewModel._currentAlert.getOrAwaitValue {  } as LocalDataState.Success
+        assertThat(result.data, CoreMatchers.`is`(CoreMatchers.not(CoreMatchers.nullValue())))
 
-    @After
-    fun tearDown() {
+
     }
 
     @Test
-    fun get_currentAlert() {
-        //given
-        var list = alertList
-        //when
+    fun insert_alert_Item_andDeleteIt () = runBlockingTest {
+        alertViewModel.insertAlertDB(current1)
+        alertViewModel.deleteAlertDB(current1)
+        var result = alertViewModel._currentAlert.getOrAwaitValue {  } as LocalDataState.Success
+        assertThat(result.data, CoreMatchers.`is`(emptyList()))
+
+    }
+
+    @Test
+    fun insert_alert_Item_andcheckGetFavorite () = runBlockingTest {
+        alertViewModel.insertAlertDB(current1)
         alertViewModel.getAlertsDB()
-        var result = alertViewModel.currentAlert.value
-        when (result) {
-            is LocalDataStateAlerts.Loading -> {
-            }
-            is LocalDataStateAlerts.Success -> {
+        var result = alertViewModel._currentAlert.getOrAwaitValue {  } as LocalDataState.Success
+        assertThat(result.data, CoreMatchers.`is`(CoreMatchers.not(CoreMatchers.nullValue())))
 
-                list = result.data as MutableList<Alert>
-            }
-            is LocalDataStateAlerts.Fail -> {
+    }
 
-            }
-        }
-        //Then
-        MatcherAssert.assertThat(list.size, CoreMatchers.`is`(alertList.size))
-
-
-
-}
-
-
-@Test
-fun set_currentAlert() {
-}
-
-@Test
-fun getCurrentAlert() {
-}
-
-@Test
-fun setCurrentAlert() {
-}
-
-@Test
-fun deleteAlertDB() {
-}
-
-@Test
-fun getAlertsDB() {
-}
-
-@Test
-fun insertAlertDB() {
-}
-
-@Test
-fun getAlertSettings() {
-}
-
-@Test
-fun saveAlertSettings() {
-}
 }

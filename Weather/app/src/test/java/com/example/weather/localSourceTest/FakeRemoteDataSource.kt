@@ -6,10 +6,8 @@ import com.example.weather.data.weather.netwok.Servics
 import com.example.weather.models.MyResponce
 import retrofit2.Response
 
-class FakeRemoteDataSource(response: FakeReposatory) : RemoteSourceInterface {
-    val service: Servics by lazy {
-        RetrofitHelper.retrofit.create(Servics::class.java)
-    }
+class FakeRemoteDataSource() : RemoteSourceInterface {
+    lateinit var weatherResponse: MyResponce
 
     override suspend fun getWeatherOverNetwork(
         lat: Double,
@@ -19,8 +17,11 @@ class FakeRemoteDataSource(response: FakeReposatory) : RemoteSourceInterface {
         lang: String,
         units: String
     ): Response<MyResponce> {
-        val response=service.getAllWeather(lat,lon,exclude,appid,lang,units)
-        return response
+        return Response.success(weatherResponse)
     }
-
 }
+
+
+
+
+

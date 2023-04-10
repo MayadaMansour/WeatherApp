@@ -45,7 +45,6 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         sharedPreferences = activity?.getSharedPreferences("My Shared", Context.MODE_PRIVATE)!!
 
-
         //Language
         _binding!!.languageRadioGroup.setOnCheckedChangeListener { group, checkedId ->
             languageRadioButton = view.findViewById<View>(checkedId) as RadioButton
@@ -110,12 +109,14 @@ class SettingFragment : Fragment() {
 
     //Set_Language_Arabic/English
     private fun setLan(language: String) {
+
         var locale = Locale(language)
         Locale.setDefault(locale)
         var config = Configuration()
         config.setLocale(locale)
         context?.resources?.updateConfiguration(config,context?.resources?.displayMetrics)
-        activity?.startActivity(Intent(context,MainActivity::class.java))
+        requireActivity().createConfigurationContext(config)
+
     }
 
     //If_Conditions

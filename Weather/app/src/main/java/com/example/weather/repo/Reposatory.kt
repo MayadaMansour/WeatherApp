@@ -3,6 +3,7 @@ package com.example.mvvm.Model
 import android.content.SharedPreferences
 import com.example.mvvm.Room.LocalSource
 import com.example.weather.data.weather.netwok.Client
+import com.example.weather.data.weather.netwok.RemoteSourceInterface
 import com.example.weather.models.Alert
 import com.example.weather.models.AlertSettings
 import com.example.weather.models.City
@@ -16,9 +17,9 @@ import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
 
 
-class Reposatory private constructor(
-    var remoteSource: Client,
-    var localSource: LocalSource,
+class Reposatory(
+    var remoteSource: RemoteSourceInterface,
+    var localSource:LocalSource ,
     var sharedPreferences: SharedPreferences
 ) : RepoInterface {
     lateinit var myResponce: MyResponce

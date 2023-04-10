@@ -56,8 +56,7 @@ private val PERMISSION_ID = 40
 class HomeFragment : Fragment() {
     var lat: Double = 0.0
     var lon: Double = 0.0
-    lateinit var language: String
-    lateinit var unites: String
+
     lateinit var myViewModel: HomeViewModel
     lateinit var myViewModelFactory: ViewModelFactory
     lateinit var geocoder: Geocoder
@@ -65,8 +64,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     lateinit var sharedPreferences: SharedPreferences
-
-
+    var lang: String = "en"
+    var unit: String = "standard"
     val args: HomeFragmentArgs by navArgs()
 
 
@@ -81,13 +80,13 @@ class HomeFragment : Fragment() {
         sharedPreferences = activity?.getSharedPreferences("My Shared", Context.MODE_PRIVATE)!!
 
 
-///////////////////////////////////Location Gps
+///////////////////////////////////Location Gps/////////////////////////////////////////////////////////
         geocoder = Geocoder(requireActivity(), Locale.getDefault())
         mFusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
 
 
-//////////////////////////////////Factory
+//////////////////////////////////Factory/////////////////////////////////////////////////////////////
         myViewModelFactory = ViewModelFactory(
             Reposatory.getInstance(
                 Client.getInstance(),
@@ -113,7 +112,14 @@ class HomeFragment : Fragment() {
                     }
                     is ApiState.Success -> {
                         _binding?.country?.text =
-                            lang.let { it1 -> getAddress(it.data.body()!!.lat,it.data.body()!!.lon, it1,requireContext()) }
+                            lang.let { it1 ->
+                                getAddress(
+                                    it.data.body()!!.lat,
+                                    it.data.body()!!.lon,
+                                    it1,
+                                    requireContext()
+                                )
+                            }
                         _binding?.tempMin?.text =
                             Math.ceil(it.data.body()?.current!!.temp).toInt()
                                 .toString() + Constants.CELSIUS
@@ -159,11 +165,12 @@ class HomeFragment : Fragment() {
 
 
 ////////////////////Set_Language_Arabic_English////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        val lang =
+                        lang =
                             sharedPreferences.getString(
                                 Constants.lang,
                                 Constants.Enum_language.en.toString()
-                            )
+                            )!!
+
                         if (lang == Constants.Enum_language.en.toString()) {
                             //en
                             _binding!!.tempMin.text =
@@ -175,7 +182,6 @@ class HomeFragment : Fragment() {
                             if (it.data.body()!!.daily!![0].temp.min != it.data.body()!!.daily!![0].temp.max)
                                 _binding!!.desc.text =
                                     it.data.body()?.current!!.weather.get(0).description
-
                             else
                                 _binding!!.desc.text = ""
                             _binding!!.tempMin.text =
@@ -192,8 +198,11 @@ class HomeFragment : Fragment() {
                                 }"
                             if (it.data.body()!!.daily!![0].temp.min != it.data.body()!!.daily!![0].temp.max)
                                 _binding!!.desc.text =
-                                    Utils.convertStringToArabic(it.data.body()?.current!!.weather.get(0).description)
-
+                                    Utils.convertStringToArabic(
+                                        it.data.body()?.current!!.weather.get(
+                                            0
+                                        ).description
+                                    )
                             else
                                 _binding!!.desc.text = ""
                             _binding!!.tempMin.text =
@@ -202,19 +211,13 @@ class HomeFragment : Fragment() {
                                 }"
                         }
 
-
-                        // _binding.container.setBackgroundResource(setBackgroundContainer(it.current.weather[0].icon,requireContext()))
-
-
                     }
                 }
             }
         }
 
-
         return root
     }
-
 
 //-----------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -228,15 +231,14 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if (args.map) {
-            Log.i("TAG", "onResume: ")
             lat = args.lat.toDouble()
             lon = args.long.toDouble()
-            language = "en"
-            unites = "standard"
+            lang = lang
+            unit = unit
             myViewModel.getWeatherFromApi(
                 lat,
                 lon,
-                "exclude", "3b2709ccc4bdcdaac7f7ea5c91b3da94", language, unites
+                "exclude", "3b2709ccc4bdcdaac7f7ea5c91b3da94", lang, unit
             )
         } else {
             getLastLocation()
@@ -250,7 +252,7 @@ class HomeFragment : Fragment() {
             (myViewModel as HomeViewModel).getWeatherFromApi(
                 mLastLocation.latitude,
                 mLastLocation.longitude,
-                "exclude", "3b2709ccc4bdcdaac7f7ea5c91b3da94", language, unites
+                "exclude", "3b2709ccc4bdcdaac7f7ea5c91b3da94", lang, unit
             )
         }
     }
@@ -304,8 +306,8 @@ class HomeFragment : Fragment() {
                     lon,
                     "exclude",
                     "3b2709ccc4bdcdaac7f7ea5c91b3da94",
-                    "en",
-                    "standard"
+                    lang,
+                    unit
                 )
 
             }

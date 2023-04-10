@@ -33,7 +33,7 @@ class FavoriteViewModel(private val _irepo: RepoInterface) : ViewModel() {
 
 
 
-    private fun getLocalWeathers(){
+  fun getLocalWeathers(){
         viewModelScope.launch {
             _irepo.getStoreWeathers().catch {e->_favoriteWeather.value= LocalDataState.Fail(e)
             }.collectLatest {

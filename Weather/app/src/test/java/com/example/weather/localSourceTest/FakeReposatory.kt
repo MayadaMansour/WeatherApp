@@ -9,23 +9,28 @@ import com.example.weather.models.AlertSettings
 import com.example.weather.models.City
 import com.example.weather.models.MyResponce
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import retrofit2.Response
 
-class FakeReposatory(var remoteSource: Client,
-                     var localSource: LocalSource,
-                     var sharedPreferences: SharedPreferences
-) : RepoInterface {
+class FakeReposatory
+ : RepoInterface {
+    var fav:MutableList<City> = mutableListOf()
+    var ala:MutableList<Alert> = mutableListOf()
     override suspend fun insertWeathers(city: City) {
-        return localSource.insertWeathers(city)
+        fav.add(city)
     }
 
     override suspend fun deleteWeathers(city: City) {
-        localSource.deleteWeathers(city)
+       fav.remove(city)
     }
 
     override fun getStoreWeathers(): Flow<List<City>> {
-        return localSource.getStoreWeathers()
+        return flow {
+            val list = fav.toList()
+            emit(list)
+        }
+
     }
 
     override suspend fun getWeatherOverNetwork(
@@ -36,18 +41,21 @@ class FakeReposatory(var remoteSource: Client,
         lang: String,
         units: String
     ): Flow<Response<MyResponce>> {
-        return flowOf(remoteSource.getWeatherOverNetwork(lat,lon,"",appid,lang,units))    }
+        TODO("Not yet implemented")
+    }
 
-    override fun getAlerts(): Flow<List<Alert>> {
-      return localSource.getAlerts()
+    override fun getAlerts(): Flow<List<Alert>> = flow{
+        val list = ala.toList()
+        emit(list)
     }
 
     override suspend fun insertAlert(alert: Alert) {
-      localSource.insertAlert(alert)
+        ala.add(alert)
+
     }
 
     override suspend fun deleteAlert(alert: Alert) {
-       localSource.deleteAlert(alert)
+        ala.remove(alert)
     }
 
     override fun saveAlertSettings(alertSettings: AlertSettings) {
