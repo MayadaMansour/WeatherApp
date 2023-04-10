@@ -1,22 +1,24 @@
 package com.example.weather.ui.favorite.view
 
-import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mvvm.Model.RepoInterface
+import com.example.weather.data.weather.netwok.LocalDataState
 import com.example.weather.models.City
-import com.example.weather.models.MyResponce
-import com.example.weather.models.Weather
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
 class FavoriteViewModel(private val _irepo: RepoInterface) : ViewModel() {
-    private var _favoriteWeather: MutableLiveData<List<City>> =
-        MutableLiveData<List<City>>()
-    val favoriteWeather: LiveData<List<City>> = _favoriteWeather
+
+    var _favoriteWeather: MutableStateFlow<LocalDataState> =
+        MutableStateFlow(LocalDataState.Loading)
+    var favoriteWeather: StateFlow<LocalDataState> =_favoriteWeather
 
     init {
         getLocalWeathers()
@@ -29,11 +31,21 @@ class FavoriteViewModel(private val _irepo: RepoInterface) : ViewModel() {
         }
     }
 
-    fun getLocalWeathers() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _favoriteWeather.postValue(_irepo.getStoreWeathers())
+
+
+  fun getLocalWeathers(){
+        viewModelScope.launch {
+            _irepo.getStoreWeathers().catch {e->_favoriteWeather.value= LocalDataState.Fail(e)
+            }.collectLatest {
+                Log.i("TAG", "getLocalWeathers: errror")
+                _favoriteWeather.value=LocalDataState.Success(it)
+
+            }
         }
     }
+
+
+
     fun insertWeathers(fav: City) {
         viewModelScope.launch(Dispatchers.IO) {
             _irepo.insertWeathers(fav)

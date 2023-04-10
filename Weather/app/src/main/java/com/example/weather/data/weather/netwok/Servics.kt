@@ -12,7 +12,7 @@ interface Servics {
         @Query("lon") lon: Double,
         @Query("exclude") exclude: String,
         @Query("appid") appid: String,
-        @Query("lang") lang: String,
+        @Query("lang") lang: String ,
         @Query("units") units: String
     ): Response<MyResponce>
 }

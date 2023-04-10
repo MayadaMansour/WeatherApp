@@ -10,8 +10,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rec_fav"
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="411dp"
+        android:layout_height="613dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
@@ -23,11 +23,12 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_fab"
-        android:layout_width="58dp"
+        android:layout_width="66dp"
         android:layout_height="63dp"
         android:layout_gravity="end"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="84dp"
+        android:clickable="true"
         android:src="@drawable/baseline_add_location_24"
         app:backgroundTint="@color/light_gray"
         app:fabSize="normal"

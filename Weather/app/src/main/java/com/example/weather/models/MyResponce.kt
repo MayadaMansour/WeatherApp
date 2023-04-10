@@ -8,7 +8,7 @@ import com.example.weather.data.weather.LocalSource.Converter
 
 @Entity(tableName = "Weather")
 @TypeConverters(Converter::class)
-data class MyResponce (
+data class MyResponce(
     @PrimaryKey val lat: Double,
     val lon: Double,
     val timezone: String,

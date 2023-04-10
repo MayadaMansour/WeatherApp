@@ -41,39 +41,41 @@ class FavoriteAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentObj = list.get(position)
-
         holder.binding.deleteIcon.setOnClickListener {
             onClick.deleteWeathers(currentObj)
             notifyDataSetChanged()
         }
-        var lat =currentObj.citylat
-        var lon =currentObj.citylon
+        var lat = currentObj.citylat
+        var lon = currentObj.citylon
         holder.binding.cardFv.setOnClickListener {
-            onClick.sendData(lat,lon)
+            onClick.sendData(lat, lon)
         }
-        Glide.with(context)
+       /* Glide.with(context)
             .load("https://openweathermap.org/img/wn/${currentObj.city.get(0)}@2x.png")
-            .into(holder.binding.iconFav)
-        val sharedPreference =  context.getSharedPreferences("getSharedPreferences", Context.MODE_PRIVATE)
-        val language =  sharedPreference.getString(Constants.lang,"en") !!
+            .into(holder.binding.iconFav) */
 
-      //  holder.binding.daesFav.text = currentObj.city
-       // holder. binding.countryFav.text = Utils.convertToDay(currentObj.city, language)
+        val sharedPreference =
+            context.getSharedPreferences("getSharedPreferences", Context.MODE_PRIVATE)
+        val language = sharedPreference.getString(Constants.lang, "en")!!
 
-        val date = currentObj.city.let  {
-            convertToDate(it.get(0).toLong(),language) }
-        if(language=="en"){
-            holder.binding.countryFav.text ="${currentObj.city}"
-            holder.binding.daesFav.text =" ${date}"
-        }else{
-            holder.binding.countryFav.text ="${currentObj.city} "
-            holder.binding.daesFav.text =" ${date}"
+        //  holder.binding.daesFav.text = currentObj.city
+        // holder. binding.countryFav.text = Utils.convertToDay(currentObj.city, language)
+
+        val date = currentObj.city.let {
+            convertToDate(it.get(0).toLong(), language)
         }
 
+        if (language == "en") {
+            holder.binding.countryFav.text = "${currentObj.city}"
+            holder.binding.daesFav.text = " ${date}"
+        } else {
+            holder.binding.countryFav.text = "${currentObj.city} "
+            holder.binding.daesFav.text = " ${date}"
+        }
     }
 
-    fun setList(favorite:List<City>){
-        list=favorite
+    fun setList(favorite: List<City>) {
+        list = favorite
         notifyDataSetChanged()
     }
 
